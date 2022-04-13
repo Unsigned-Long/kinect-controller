@@ -1,0 +1,170 @@
+[
+    {
+        "merged": "/home/csl/AndroidProjects/Slam/app/build/intermediates/merged_res/debug/mipmap-hdpi_ic_launcher_round.webp.flat",
+        "source": "/home/csl/AndroidProjects/Slam/app/src/main/res/mipmap-hdpi/ic_launcher_round.webp"
+    },
+    {
+        "merged": "/home/csl/AndroidProjects/Slam/app/build/intermediates/merged_res/debug/mipmap-xxxhdpi_ic_launcher_round.webp.flat",
+        "source": "/home/csl/AndroidProjects/Slam/app/src/main/res/mipmap-xxxhdpi/ic_launcher_round.webp"
+    },
+    {
+        "merged": "/home/csl/AndroidProjects/Slam/app/build/intermediates/merged_res/debug/drawable-v24_m.png.flat",
+        "source": "/home/csl/AndroidProjects/Slam/app/src/main/res/drawable-v24/m.png"
+    },
+    {
+        "merged": "/home/csl/AndroidProjects/Slam/app/build/intermediates/merged_res/debug/drawable-anydpi-v24_ic_launcher_foreground.xml.flat",
+        "source": "/home/csl/AndroidProjects/Slam/app/build/generated/res/pngs/debug/drawable-anydpi-v24/ic_launcher_foreground.xml"
+    },
+    {
+        "merged": "/home/csl/AndroidProjects/Slam/app/build/intermediates/merged_res/debug/drawable-v24_help.png.flat",
+        "source": "/home/csl/AndroidProjects/Slam/app/src/main/res/drawable-v24/help.png"
+    },
+    {
+        "merged": "/home/csl/AndroidProjects/Slam/app/build/intermediates/merged_res/debug/mipmap-xxxhdpi_ic_launcher.webp.flat",
+        "source": "/home/csl/AndroidProjects/Slam/app/src/main/res/mipmap-xxxhdpi/ic_launcher.webp"
+    },
+    {
+        "merged": "/home/csl/AndroidProjects/Slam/app/build/intermediates/merged_res/debug/drawable-v24_p.png.flat",
+        "source": "/home/csl/AndroidProjects/Slam/app/src/main/res/drawable-v24/p.png"
+    },
+    {
+        "merged": "/home/csl/AndroidProjects/Slam/app/build/intermediates/merged_res/debug/drawable-v24_f.png.flat",
+        "source": "/home/csl/AndroidProjects/Slam/app/src/main/res/drawable-v24/f.png"
+    },
+    {
+        "merged": "/home/csl/AndroidProjects/Slam/app/build/intermediates/merged_res/debug/drawable-v24_ic.png.flat",
+        "source": "/home/csl/AndroidProjects/Slam/app/src/main/res/drawable-v24/ic.png"
+    },
+    {
+        "merged": "/home/csl/AndroidProjects/Slam/app/build/intermediates/merged_res/debug/font_ubuntu_mono.xml.flat",
+        "source": "/home/csl/AndroidProjects/Slam/app/src/main/res/font/ubuntu_mono.xml"
+    },
+    {
+        "merged": "/home/csl/AndroidProjects/Slam/app/build/intermediates/merged_res/debug/mipmap-mdpi_ic_launcher.webp.flat",
+        "source": "/home/csl/AndroidProjects/Slam/app/src/main/res/mipmap-mdpi/ic_launcher.webp"
+    },
+    {
+        "merged": "/home/csl/AndroidProjects/Slam/app/build/intermediates/merged_res/debug/drawable_ic_launcher_background.xml.flat",
+        "source": "/home/csl/AndroidProjects/Slam/app/src/main/res/drawable/ic_launcher_background.xml"
+    },
+    {
+        "merged": "/home/csl/AndroidProjects/Slam/app/build/intermediates/merged_res/debug/drawable-v24_low_i.png.flat",
+        "source": "/home/csl/AndroidProjects/Slam/app/src/main/res/drawable-v24/low_i.png"
+    },
+    {
+        "merged": "/home/csl/AndroidProjects/Slam/app/build/intermediates/merged_res/debug/mipmap-anydpi-v26_ic_launcher.xml.flat",
+        "source": "/home/csl/AndroidProjects/Slam/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml"
+    },
+    {
+        "merged": "/home/csl/AndroidProjects/Slam/app/build/intermediates/merged_res/debug/drawable_wifi_selector.xml.flat",
+        "source": "/home/csl/AndroidProjects/Slam/app/src/main/res/drawable/wifi_selector.xml"
+    },
+    {
+        "merged": "/home/csl/AndroidProjects/Slam/app/build/intermediates/merged_res/debug/mipmap-xxhdpi_ic_launcher.webp.flat",
+        "source": "/home/csl/AndroidProjects/Slam/app/src/main/res/mipmap-xxhdpi/ic_launcher.webp"
+    },
+    {
+        "merged": "/home/csl/AndroidProjects/Slam/app/build/intermediates/merged_res/debug/mipmap-xhdpi_ic_launcher_round.webp.flat",
+        "source": "/home/csl/AndroidProjects/Slam/app/src/main/res/mipmap-xhdpi/ic_launcher_round.webp"
+    },
+    {
+        "merged": "/home/csl/AndroidProjects/Slam/app/build/intermediates/merged_res/debug/drawable_stop.xml.flat",
+        "source": "/home/csl/AndroidProjects/Slam/app/src/main/res/drawable/stop.xml"
+    },
+    {
+        "merged": "/home/csl/AndroidProjects/Slam/app/build/intermediates/merged_res/debug/drawable-v24_s.png.flat",
+        "source": "/home/csl/AndroidProjects/Slam/app/src/main/res/drawable-v24/s.png"
+    },
+    {
+        "merged": "/home/csl/AndroidProjects/Slam/app/build/intermediates/merged_res/debug/drawable_home_selector.xml.flat",
+        "source": "/home/csl/AndroidProjects/Slam/app/src/main/res/drawable/home_selector.xml"
+    },
+    {
+        "merged": "/home/csl/AndroidProjects/Slam/app/build/intermediates/merged_res/debug/drawable_help_selector.xml.flat",
+        "source": "/home/csl/AndroidProjects/Slam/app/src/main/res/drawable/help_selector.xml"
+    },
+    {
+        "merged": "/home/csl/AndroidProjects/Slam/app/build/intermediates/merged_res/debug/drawable_connect.xml.flat",
+        "source": "/home/csl/AndroidProjects/Slam/app/src/main/res/drawable/connect.xml"
+    },
+    {
+        "merged": "/home/csl/AndroidProjects/Slam/app/build/intermediates/merged_res/debug/drawable-v24_home.png.flat",
+        "source": "/home/csl/AndroidProjects/Slam/app/src/main/res/drawable-v24/home.png"
+    },
+    {
+        "merged": "/home/csl/AndroidProjects/Slam/app/build/intermediates/merged_res/debug/drawable-v24_w.png.flat",
+        "source": "/home/csl/AndroidProjects/Slam/app/src/main/res/drawable-v24/w.png"
+    },
+    {
+        "merged": "/home/csl/AndroidProjects/Slam/app/build/intermediates/merged_res/debug/drawable-v24_l.png.flat",
+        "source": "/home/csl/AndroidProjects/Slam/app/src/main/res/drawable-v24/l.png"
+    },
+    {
+        "merged": "/home/csl/AndroidProjects/Slam/app/build/intermediates/merged_res/debug/drawable-v24_a.png.flat",
+        "source": "/home/csl/AndroidProjects/Slam/app/src/main/res/drawable-v24/a.png"
+    },
+    {
+        "merged": "/home/csl/AndroidProjects/Slam/app/build/intermediates/merged_res/debug/mipmap-mdpi_ic_launcher_round.webp.flat",
+        "source": "/home/csl/AndroidProjects/Slam/app/src/main/res/mipmap-mdpi/ic_launcher_round.webp"
+    },
+    {
+        "merged": "/home/csl/AndroidProjects/Slam/app/build/intermediates/merged_res/debug/drawable_label.xml.flat",
+        "source": "/home/csl/AndroidProjects/Slam/app/src/main/res/drawable/label.xml"
+    },
+    {
+        "merged": "/home/csl/AndroidProjects/Slam/app/build/intermediates/merged_res/debug/mipmap-xxhdpi_ic_launcher_round.webp.flat",
+        "source": "/home/csl/AndroidProjects/Slam/app/src/main/res/mipmap-xxhdpi/ic_launcher_round.webp"
+    },
+    {
+        "merged": "/home/csl/AndroidProjects/Slam/app/build/intermediates/merged_res/debug/drawable-v24_wifi_true.png.flat",
+        "source": "/home/csl/AndroidProjects/Slam/app/src/main/res/drawable-v24/wifi_true.png"
+    },
+    {
+        "merged": "/home/csl/AndroidProjects/Slam/app/build/intermediates/merged_res/debug/drawable-v24_simple_back.xml.flat",
+        "source": "/home/csl/AndroidProjects/Slam/app/src/main/res/drawable-v24/simple_back.xml"
+    },
+    {
+        "merged": "/home/csl/AndroidProjects/Slam/app/build/intermediates/merged_res/debug/drawable-v24_home_true.png.flat",
+        "source": "/home/csl/AndroidProjects/Slam/app/src/main/res/drawable-v24/home_true.png"
+    },
+    {
+        "merged": "/home/csl/AndroidProjects/Slam/app/build/intermediates/merged_res/debug/drawable-v24_h.png.flat",
+        "source": "/home/csl/AndroidProjects/Slam/app/src/main/res/drawable-v24/h.png"
+    },
+    {
+        "merged": "/home/csl/AndroidProjects/Slam/app/build/intermediates/merged_res/debug/mipmap-hdpi_ic_launcher.webp.flat",
+        "source": "/home/csl/AndroidProjects/Slam/app/src/main/res/mipmap-hdpi/ic_launcher.webp"
+    },
+    {
+        "merged": "/home/csl/AndroidProjects/Slam/app/build/intermediates/merged_res/debug/mipmap-xhdpi_ic_launcher.webp.flat",
+        "source": "/home/csl/AndroidProjects/Slam/app/src/main/res/mipmap-xhdpi/ic_launcher.webp"
+    },
+    {
+        "merged": "/home/csl/AndroidProjects/Slam/app/build/intermediates/merged_res/debug/drawable-v24_wifi.png.flat",
+        "source": "/home/csl/AndroidProjects/Slam/app/src/main/res/drawable-v24/wifi.png"
+    },
+    {
+        "merged": "/home/csl/AndroidProjects/Slam/app/build/intermediates/merged_res/debug/mipmap-anydpi-v26_ic_launcher_round.xml.flat",
+        "source": "/home/csl/AndroidProjects/Slam/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml"
+    },
+    {
+        "merged": "/home/csl/AndroidProjects/Slam/app/build/intermediates/merged_res/debug/drawable-v24_e.png.flat",
+        "source": "/home/csl/AndroidProjects/Slam/app/src/main/res/drawable-v24/e.png"
+    },
+    {
+        "merged": "/home/csl/AndroidProjects/Slam/app/build/intermediates/merged_res/debug/layout_activity_main.xml.flat",
+        "source": "/home/csl/AndroidProjects/Slam/app/src/main/res/layout/activity_main.xml"
+    },
+    {
+        "merged": "/home/csl/AndroidProjects/Slam/app/build/intermediates/merged_res/debug/drawable-v24_help_true.png.flat",
+        "source": "/home/csl/AndroidProjects/Slam/app/src/main/res/drawable-v24/help_true.png"
+    },
+    {
+        "merged": "/home/csl/AndroidProjects/Slam/app/build/intermediates/merged_res/debug/drawable_text.xml.flat",
+        "source": "/home/csl/AndroidProjects/Slam/app/src/main/res/drawable/text.xml"
+    },
+    {
+        "merged": "/home/csl/AndroidProjects/Slam/app/build/intermediates/merged_res/debug/drawable_start.xml.flat",
+        "source": "/home/csl/AndroidProjects/Slam/app/src/main/res/drawable/start.xml"
+    }
+]

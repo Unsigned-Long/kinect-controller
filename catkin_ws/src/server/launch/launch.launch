@@ -1,0 +1,4 @@
+<launch>
+    <node pkg="server" type="server_node" name="server" output="screen"></node>
+    <node pkg="dk_camera" type="dk_camera_node" name="dk_camera" output="screen"></node>
+</launch>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="tabText" parent="TextAppearance.Design.Tab">
+
+        <item name="android:textSize">@dimen/text_size</item>
+
+        <item name="android:textStyle">bold</item>
+
+        <item name="android:textAllCaps">false</item>
+
+        <item name="android:fontFamily">@font/ubuntu_mono</item>
+    </style>
+</resources>

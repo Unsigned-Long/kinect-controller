@@ -1,0 +1,8 @@
+prefix=/home/csl/TempWork/catkin_ws/install
+
+Name: dk_camera
+Description: Description of dk_camera
+Version: 0.0.0
+Cflags: -I${prefix}/include
+Libs: -L${prefix}/lib 
+Requires: roscpp std_msgs message_runtime

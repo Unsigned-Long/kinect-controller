@@ -1,0 +1,15 @@
+<resources>
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="main_linearlayout_padding">15dp</dimen>
+    <dimen name="label_height">45dp</dimen>
+    <dimen name="text_size">8pt</dimen>
+    <dimen name="margin">20dp</dimen>
+    <dimen name="button_height">45dp</dimen>
+    <dimen name="small_margin_between_views">5dp</dimen>
+    <dimen name="corner_radius">8dp</dimen>
+    <dimen name="border_width_light">1dp</dimen>
+    <dimen name="border_width_middle">2dp</dimen>
+    <dimen name="border_width_weight">3dp</dimen>
+    <dimen name="img_height">60dp</dimen>
+    <dimen name="padding_small">15dp</dimen>
+</resources>

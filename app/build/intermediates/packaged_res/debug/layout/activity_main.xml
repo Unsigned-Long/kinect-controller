@@ -1,0 +1,720 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:keepScreenOn="true"
+    tools:context=".MainActivity">
+
+    <FrameLayout
+        android:id="@+id/frame_slam"
+        android:layout_width="match_parent"
+        android:visibility="visible"
+        app:layout_constraintBottom_toTopOf="@id/nav_view"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_height="0dp">
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="@dimen/main_linearlayout_padding"
+                tools:ignore="MissingConstraints">
+
+                <TextView
+                    android:id="@+id/textview_time_2"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/label_height"
+                    android:background="@drawable/simple_back"
+                    android:fontFamily="@font/ubuntu_mono"
+                    android:gravity="center"
+                    android:hint="Local Time"
+                    android:textSize="@dimen/text_size"
+                    android:textStyle="bold">
+
+                </TextView>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="0dp"
+                        android:layout_height="@dimen/img_height"
+                        android:layout_weight="1"
+                        android:src="@drawable/s">
+
+                    </ImageView>
+
+                    <ImageView
+                        android:layout_width="0dp"
+                        android:layout_height="@dimen/img_height"
+                        android:layout_weight="1"
+                        android:src="@drawable/l">
+
+                    </ImageView>
+
+                    <ImageView
+                        android:layout_width="0dp"
+                        android:layout_height="@dimen/img_height"
+                        android:layout_weight="1"
+                        android:src="@drawable/a">
+
+                    </ImageView>
+
+                    <ImageView
+                        android:layout_width="0dp"
+                        android:layout_height="@dimen/img_height"
+                        android:layout_weight="1"
+                        android:src="@drawable/m">
+
+                    </ImageView>
+
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/text_state"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/label_height"
+                    android:layout_marginTop="@dimen/margin"
+                    android:layout_weight="1"
+                    android:background="@drawable/simple_back"
+                    android:fontFamily="@font/ubuntu_mono"
+                    android:gravity="center"
+                    android:hint="Connection State"
+                    android:textSize="@dimen/text_size"
+                    android:textStyle="bold"></TextView>
+
+                <TextView
+                    android:id="@+id/textview_deviceMsg"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/label_height"
+                    android:layout_marginTop="@dimen/small_margin_between_views"
+                    android:background="@drawable/simple_back"
+                    android:fontFamily="@font/ubuntu_mono"
+                    android:gravity="center"
+                    android:hint="Device Message"
+                    android:textSize="@dimen/text_size"
+                    android:textStyle="bold">
+
+                </TextView>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="@dimen/label_height"
+                        android:layout_marginRight="@dimen/small_margin_between_views"
+                        android:layout_weight="1"
+                        android:background="@drawable/label"
+                        android:fontFamily="@font/ubuntu_mono"
+                        android:gravity="center"
+                        android:text="Rgb"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/text_size"
+                        android:textStyle="bold"></TextView>
+
+                    <TextView
+                        android:id="@+id/textview_rgb"
+                        android:layout_width="0dp"
+                        android:layout_height="@dimen/label_height"
+                        android:layout_weight="2"
+                        android:background="@drawable/text"
+                        android:fontFamily="@font/ubuntu_mono"
+                        android:gravity="center"
+                        android:hint="rgb image Path"
+                        android:textSize="@dimen/text_size"
+                        android:textStyle="bold"></TextView>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/small_margin_between_views"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="@dimen/label_height"
+                        android:layout_marginRight="@dimen/small_margin_between_views"
+                        android:layout_weight="1"
+                        android:background="@drawable/label"
+                        android:fontFamily="@font/ubuntu_mono"
+                        android:gravity="center"
+                        android:text="Depth"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/text_size"
+                        android:textStyle="bold"></TextView>
+
+                    <TextView
+                        android:id="@+id/textview_depth"
+                        android:layout_width="0dp"
+                        android:layout_height="@dimen/label_height"
+                        android:layout_weight="2"
+                        android:background="@drawable/text"
+                        android:fontFamily="@font/ubuntu_mono"
+                        android:gravity="center"
+                        android:hint="depth image Path"
+                        android:textSize="@dimen/text_size"
+                        android:textStyle="bold"></TextView>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/small_margin_between_views"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="@dimen/label_height"
+                        android:layout_marginRight="@dimen/small_margin_between_views"
+                        android:layout_weight="1"
+                        android:background="@drawable/label"
+                        android:fontFamily="@font/ubuntu_mono"
+                        android:gravity="center"
+                        android:text="Time"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/text_size"
+                        android:textStyle="bold"></TextView>
+
+                    <TextView
+                        android:id="@+id/textview_imgTime"
+                        android:layout_width="0dp"
+                        android:layout_height="@dimen/label_height"
+                        android:layout_weight="2"
+                        android:background="@drawable/text"
+                        android:fontFamily="@font/ubuntu_mono"
+                        android:gravity="center"
+                        android:hint="Real Time Timestamp"
+                        android:textSize="@dimen/text_size"
+                        android:textStyle="bold"></TextView>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin"
+                    android:orientation="horizontal">
+
+                    <Button
+                        android:id="@+id/button_connect"
+                        android:layout_width="0dp"
+                        android:layout_height="@dimen/button_height"
+                        android:layout_marginRight="@dimen/small_margin_between_views"
+                        android:layout_weight="1"
+                        android:background="@drawable/connect"
+                        android:fontFamily="@font/ubuntu_mono"
+                        android:text="Connect"
+                        android:textSize="@dimen/text_size"
+                        android:textStyle="bold">
+
+                    </Button>
+
+                    <Button
+                        android:id="@+id/button_start"
+                        android:layout_width="0dp"
+                        android:layout_height="@dimen/button_height"
+                        android:layout_marginRight="@dimen/small_margin_between_views"
+                        android:layout_weight="1"
+                        android:background="@drawable/start"
+                        android:fontFamily="@font/ubuntu_mono"
+                        android:text="Start"
+                        android:textSize="@dimen/text_size"
+                        android:textStyle="bold">
+
+                    </Button>
+
+                    <Button
+                        android:id="@+id/button_stop"
+                        android:layout_width="0dp"
+                        android:layout_height="@dimen/button_height"
+                        android:layout_weight="1"
+                        android:background="@drawable/stop"
+                        android:fontFamily="@font/ubuntu_mono"
+                        android:text="Stop"
+                        android:textSize="@dimen/text_size"
+                        android:textStyle="bold">
+
+                    </Button>
+
+                </LinearLayout>
+
+                <!-- just for layout -->
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"></TextView>
+            </LinearLayout>
+
+        </ScrollView>
+
+    </FrameLayout>
+
+    <FrameLayout
+        android:id="@+id/frame_wifi"
+        android:layout_width="match_parent"
+        android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="@id/nav_view"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_height="0dp">
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="@dimen/main_linearlayout_padding"
+                tools:ignore="MissingConstraints">
+
+
+                <TextView
+                    android:id="@+id/textview_time_1"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/label_height"
+                    android:layout_marginBottom="@dimen/margin"
+                    android:background="@drawable/simple_back"
+                    android:fontFamily="@font/ubuntu_mono"
+                    android:gravity="center"
+                    android:hint="Local Time"
+                    android:textSize="@dimen/text_size"
+                    android:textStyle="bold">
+
+                </TextView>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/margin"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="0dp"
+                        android:layout_height="@dimen/img_height"
+                        android:layout_weight="1"
+                        android:src="@drawable/w">
+
+                    </ImageView>
+
+                    <ImageView
+                        android:layout_width="0dp"
+                        android:layout_height="@dimen/img_height"
+                        android:layout_weight="1"
+                        android:src="@drawable/low_i">
+
+                    </ImageView>
+
+                    <ImageView
+                        android:layout_width="0dp"
+                        android:layout_height="@dimen/img_height"
+                        android:layout_weight="1"
+                        android:src="@drawable/f">
+
+                    </ImageView>
+
+                    <ImageView
+                        android:layout_width="0dp"
+                        android:layout_height="@dimen/img_height"
+                        android:layout_weight="1"
+                        android:src="@drawable/low_i">
+
+                    </ImageView>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="@dimen/label_height"
+                            android:layout_marginRight="@dimen/small_margin_between_views"
+                            android:layout_weight="1"
+                            android:background="@drawable/label"
+                            android:fontFamily="@font/ubuntu_mono"
+                            android:gravity="center"
+                            android:text="SSID"
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/text_size"
+                            android:textStyle="bold"></TextView>
+
+                        <TextView
+                            android:id="@+id/textview_ssid"
+                            android:layout_width="0dp"
+                            android:layout_height="@dimen/label_height"
+                            android:layout_weight="1"
+                            android:background="@drawable/text"
+                            android:fontFamily="@font/ubuntu_mono"
+                            android:gravity="center"
+                            android:textSize="@dimen/text_size"
+                            android:textStyle="bold"></TextView>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/small_margin_between_views"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="@dimen/label_height"
+                            android:layout_marginRight="@dimen/small_margin_between_views"
+                            android:layout_weight="1"
+                            android:background="@drawable/label"
+                            android:fontFamily="@font/ubuntu_mono"
+                            android:gravity="center"
+                            android:text="RSSI"
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/text_size"
+                            android:textStyle="bold"></TextView>
+
+                        <TextView
+                            android:id="@+id/textview_rssi"
+                            android:layout_width="0dp"
+                            android:layout_height="@dimen/label_height"
+                            android:layout_marginRight="@dimen/small_margin_between_views"
+                            android:layout_weight="1"
+                            android:background="@drawable/text"
+                            android:fontFamily="@font/ubuntu_mono"
+                            android:gravity="center"
+                            android:textSize="@dimen/text_size"
+                            android:textStyle="bold"></TextView>
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="@dimen/label_height"
+                            android:layout_marginRight="@dimen/small_margin_between_views"
+                            android:layout_weight="1"
+                            android:background="@drawable/label"
+                            android:fontFamily="@font/ubuntu_mono"
+                            android:gravity="center"
+                            android:text="Speed"
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/text_size"
+                            android:textStyle="bold"></TextView>
+
+                        <TextView
+                            android:id="@+id/textview_speed"
+                            android:layout_width="0dp"
+                            android:layout_height="@dimen/label_height"
+                            android:layout_weight="1"
+                            android:background="@drawable/text"
+                            android:fontFamily="@font/ubuntu_mono"
+                            android:gravity="center"
+                            android:textSize="@dimen/text_size"
+                            android:textStyle="bold"></TextView>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/small_margin_between_views"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="@dimen/label_height"
+                            android:layout_marginRight="@dimen/small_margin_between_views"
+                            android:layout_weight="1"
+                            android:background="@drawable/label"
+                            android:fontFamily="@font/ubuntu_mono"
+                            android:gravity="center"
+                            android:text="Freq"
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/text_size"
+                            android:textStyle="bold"></TextView>
+
+                        <TextView
+                            android:id="@+id/textview_frequency"
+                            android:layout_width="0dp"
+                            android:layout_height="@dimen/label_height"
+                            android:layout_marginRight="@dimen/small_margin_between_views"
+                            android:layout_weight="1"
+                            android:background="@drawable/text"
+                            android:fontFamily="@font/ubuntu_mono"
+                            android:gravity="center"
+                            android:textSize="@dimen/text_size"
+                            android:textStyle="bold"></TextView>
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="@dimen/label_height"
+                            android:layout_marginRight="@dimen/small_margin_between_views"
+                            android:layout_weight="1"
+                            android:background="@drawable/label"
+                            android:fontFamily="@font/ubuntu_mono"
+                            android:gravity="center"
+                            android:text="NetId"
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/text_size"
+                            android:textStyle="bold"></TextView>
+
+                        <TextView
+                            android:id="@+id/textview_netId"
+                            android:layout_width="0dp"
+                            android:layout_height="@dimen/label_height"
+                            android:layout_weight="1"
+                            android:background="@drawable/text"
+                            android:fontFamily="@font/ubuntu_mono"
+                            android:gravity="center"
+                            android:textSize="@dimen/text_size"
+                            android:textStyle="bold"></TextView>
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/small_margin_between_views"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="@dimen/label_height"
+                            android:layout_marginRight="@dimen/small_margin_between_views"
+                            android:layout_weight="1"
+                            android:background="@drawable/label"
+                            android:fontFamily="@font/ubuntu_mono"
+                            android:gravity="center"
+                            android:text="IP"
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/text_size"
+                            android:textStyle="bold"></TextView>
+
+                        <TextView
+                            android:id="@+id/textview_ip"
+                            android:layout_width="0dp"
+                            android:layout_height="@dimen/label_height"
+                            android:layout_weight="3"
+                            android:background="@drawable/text"
+                            android:fontFamily="@font/ubuntu_mono"
+                            android:gravity="center"
+                            android:textSize="@dimen/text_size"
+                            android:textStyle="bold"></TextView>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/small_margin_between_views"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="@dimen/label_height"
+                            android:layout_marginRight="@dimen/small_margin_between_views"
+                            android:layout_weight="1"
+                            android:background="@drawable/label"
+                            android:fontFamily="@font/ubuntu_mono"
+                            android:gravity="center"
+                            android:text="Port"
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/text_size"
+                            android:textStyle="bold"></TextView>
+
+                        <TextView
+                            android:id="@+id/textview_port"
+                            android:layout_width="0dp"
+                            android:layout_height="@dimen/label_height"
+                            android:layout_weight="3"
+                            android:background="@drawable/text"
+                            android:fontFamily="@font/ubuntu_mono"
+                            android:gravity="center"
+                            android:textSize="@dimen/text_size"
+                            android:textStyle="bold">
+
+                        </TextView>
+
+                    </LinearLayout>
+
+
+                </LinearLayout>
+
+                <!-- just for layout -->
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"></TextView>
+            </LinearLayout>
+
+        </ScrollView>
+
+    </FrameLayout>
+
+    <FrameLayout
+        android:id="@+id/frame_help"
+        android:layout_width="match_parent"
+        android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="@id/nav_view"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_height="0dp">
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="@dimen/main_linearlayout_padding"
+                tools:ignore="MissingConstraints">
+
+                <TextView
+                    android:id="@+id/textview_time_3"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/label_height"
+                    android:background="@drawable/simple_back"
+                    android:fontFamily="@font/ubuntu_mono"
+                    android:gravity="center"
+                    android:hint="Local Time"
+                    android:textSize="@dimen/text_size"
+                    android:textStyle="bold">
+
+                </TextView>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="0dp"
+                        android:layout_height="@dimen/img_height"
+                        android:layout_weight="1"
+                        android:src="@drawable/h">
+
+                    </ImageView>
+
+                    <ImageView
+                        android:layout_width="0dp"
+                        android:layout_height="@dimen/img_height"
+                        android:layout_weight="1"
+                        android:src="@drawable/e">
+
+                    </ImageView>
+
+                    <ImageView
+                        android:layout_width="0dp"
+                        android:layout_height="@dimen/img_height"
+                        android:layout_weight="1"
+                        android:src="@drawable/l">
+
+                    </ImageView>
+
+                    <ImageView
+                        android:layout_width="0dp"
+                        android:layout_height="@dimen/img_height"
+                        android:layout_weight="1"
+                        android:src="@drawable/p">
+
+                    </ImageView>
+
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin"
+                    android:background="@drawable/simple_back"
+                    android:fontFamily="@font/ubuntu_mono"
+                    android:gravity="left"
+                    android:padding="@dimen/padding_small"
+                    android:text="This is a software based on Android and used to control slam data acquisition devices.
+It communicates with the device via WiFi. The following is how to use the software:\n\n
+1) First, open WiFi and connect to the hotspot of the specified device;\n\n
+2) Click the 'CONNECT' button to connect to the server running on the device.
+After the connection is successful, you can see the prompt of successful connection in the 'Connection State' TextView;\n\n
+3) Click the 'START' button to start data collection;\n\n
+4) To end the acquisition, click the 'STOP' button, and the device will stop the acquisition and record the data
+into the internal storage of the device."
+                    android:textSize="@dimen/text_size"
+                    android:textStyle="normal">
+
+                </TextView>
+
+                <!-- just for layout -->
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"></TextView>
+
+            </LinearLayout>
+
+        </ScrollView>
+
+    </FrameLayout>
+
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/nav_view"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="0dp"
+        android:layout_marginBottom="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:tabIndicatorColor="@color/purple_500"
+        app:tabSelectedTextColor="@color/purple_500"
+        app:tabTextAppearance="@style/tabText">
+
+        <com.google.android.material.tabs.TabItem
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:icon="@drawable/home_selector"
+            android:text="Home"/>
+
+        <com.google.android.material.tabs.TabItem
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:icon="@drawable/wifi_selector"
+            android:text="WiFi"/>
+
+        <com.google.android.material.tabs.TabItem
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:icon="@drawable/help_selector"
+            android:text="Help"/>
+
+    </com.google.android.material.tabs.TabLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

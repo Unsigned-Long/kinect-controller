@@ -1,0 +1,8 @@
+prefix=/home/csl/TempWork/catkin_ws/devel
+
+Name: slam_web
+Description: Description of slam_web
+Version: 0.0.0
+Cflags: 
+Libs: -L${prefix}/lib 
+Requires: roscpp std_msgs
