@@ -16,8 +16,11 @@ import android.os.Looper;
 import android.os.Message;
 import android.util.Log;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -33,7 +36,6 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.util.Arrays;
 
 public class MainActivity extends AppCompatActivity {
     public static final int DEVICE_CONNECTING = 1;
@@ -41,15 +43,19 @@ public class MainActivity extends AppCompatActivity {
     public static final int SEND_MSG_SUCCESS = 3;
     public static final int SEND_MSG_ERROR = 4;
     public static final int GET_MSG_SUCCESS = 6;
+
     // this is the port
     public static final int DEVICE_PORT = 3890;
-    // should use this
-    private static final String _targetWiFiSSID = "Juster";
-    private static final String _targetHostName = "whu-ubuntu";
+    private static final String _targetWiFiSSID = "slam";
+    private static final String _targetHostName = "slam-device";
+
+//    private static final String _targetWiFiSSID = "Juster";
+//    private static final String _targetHostName = "whu-ubuntu";
+
     // message flags
-    private static final String COLOR_DEPTH_TIME = "0";
-    private static final String INFO_MESSAGE_TEXTVIEW = "1";
-    private static final String INFO_MESSAGE_TOAST = "2";
+    private static final char COLOR_DEPTH_TIME = '0';
+    private static final char INFO_MESSAGE_TEXTVIEW = '1';
+    private static final char INFO_MESSAGE_TOAST = '2';
     // wifi
     private WifiManager _wifiManager;
     private WifiInfo _wifiInfo;
@@ -60,9 +66,9 @@ public class MainActivity extends AppCompatActivity {
     private WifiStateBroadcastReceive _wifiStateReceiver;
     // textview [wifi info]
     private TextView _textViewDeviceConnectState;
-    private TextView _timeDisplay_1;
-    private TextView _timeDisplay_2;
-    private TextView _timeDisplay_3;
+    private TextView _timeDisplay_wifi;
+    private TextView _timeDisplay_home;
+    private TextView _timeDisplay_help;
     private TextView _ssid;
     private TextView _rssi;
     private TextView _speed;
@@ -72,6 +78,11 @@ public class MainActivity extends AppCompatActivity {
     private TextView _rgbPath;
     private TextView _depthPath;
     private TextView _timeStamp;
+    private TextView _supState;
+    private ImageView _letter_s;
+    private ImageView _letter_l;
+    private ImageView _letter_a;
+    private ImageView _letter_m;
     private Handler _timeDisplayHandler;
     // frame
     private FrameLayout _frameSlam, _frameWifi, _frameHelp;
@@ -101,13 +112,30 @@ public class MainActivity extends AppCompatActivity {
                 (ip >> 24 & 0xFF);
     }
 
+    public void handleReceivedMsg(String str) {
+
+        if (str.charAt(0) == INFO_MESSAGE_TEXTVIEW) {
+            _deviceMsg.setText(str.substring(1));
+        } else if (str.charAt(0) == COLOR_DEPTH_TIME) {
+            String[] strAry = str.substring(1).split(":");
+            _rgbPath.setText(strAry[0]);
+            _depthPath.setText(strAry[1]);
+            _timeStamp.setText(strAry[2]);
+        } else if (str.charAt(0) == INFO_MESSAGE_TOAST) {
+            _deviceMsg.setText(str.substring(1));
+            Toast.makeText(MainActivity.this, str.substring(1), Toast.LENGTH_SHORT).show();
+        }
+
+        Log.d("---", str);
+    }
+
     @SuppressLint("SetTextI18n")
     public void initVariables() {
         // frame
-        _frameSlam=findViewById(R.id.frame_slam);
-        _frameWifi=findViewById(R.id.frame_wifi);
-        _frameHelp=findViewById(R.id.frame_help);
-        TabLayout tabLayout = (TabLayout) findViewById(R.id.nav_view);
+        _frameSlam = findViewById(R.id.frame_slam);
+        _frameWifi = findViewById(R.id.frame_wifi);
+        _frameHelp = findViewById(R.id.frame_help);
+        TabLayout tabLayout = findViewById(R.id.nav_view);
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
@@ -154,6 +182,14 @@ public class MainActivity extends AppCompatActivity {
         _rgbPath = findViewById(R.id.textview_rgb);
         _depthPath = findViewById(R.id.textview_depth);
         _timeStamp = findViewById(R.id.textview_imgTime);
+        _supState = findViewById(R.id.textview_supstate);
+
+        // images
+        _letter_s = findViewById(R.id.img_s);
+        _letter_l = findViewById(R.id.img_l);
+        _letter_a = findViewById(R.id.img_a);
+        _letter_m = findViewById(R.id.img_m);
+
         // tcp
         this._textViewDeviceConnectState = findViewById(R.id.text_state);
 
@@ -177,17 +213,7 @@ public class MainActivity extends AppCompatActivity {
                         break;
                     case GET_MSG_SUCCESS:
                         String message = msg.getData().getString("MSG");
-                        String[] strAry = message.split(":");
-                        Log.d("---", Arrays.toString(strAry));
-                        if (strAry[0].equals(INFO_MESSAGE_TEXTVIEW)) {
-                            _deviceMsg.setText(strAry[1]);
-                        } else if (strAry[0].equals(COLOR_DEPTH_TIME)) {
-                            _rgbPath.setText(strAry[1]);
-                            _depthPath.setText(strAry[2]);
-                            _timeStamp.setText(strAry[3]);
-                        } else if (strAry[0].equals(INFO_MESSAGE_TOAST)) {
-                            Toast.makeText(MainActivity.this, strAry[1], Toast.LENGTH_SHORT).show();
-                        }
+                        handleReceivedMsg(message);
                         break;
                     default:
                 }
@@ -196,6 +222,7 @@ public class MainActivity extends AppCompatActivity {
 
         Button _btnConnect = findViewById(R.id.button_connect);
         _btnConnect.setOnClickListener(view -> {
+
             if (_targetWiFiConnected == 0) {
                 Toast.makeText(MainActivity.this, "please turn on WiFi", Toast.LENGTH_SHORT).show();
             } else if (_targetWiFiConnected == -1) {
@@ -224,6 +251,13 @@ public class MainActivity extends AppCompatActivity {
             if (_connectThread != null) {
                 new Thread(() -> _connectThread.sendData("start")).start();
 
+                Animation animation = AnimationUtils.loadAnimation(MainActivity.this, R.anim.running);
+
+                _letter_s.startAnimation(animation);
+                _letter_l.startAnimation(animation);
+                _letter_a.startAnimation(animation);
+                _letter_m.startAnimation(animation);
+
             } else {
                 Toast.makeText(MainActivity.this, "device isn't connected", Toast.LENGTH_SHORT).show();
             }
@@ -232,21 +266,28 @@ public class MainActivity extends AppCompatActivity {
         Button _btnStop = findViewById(R.id.button_stop);
         _btnStop.setOnClickListener(view -> {
             if (_connectThread != null) {
-                new AlertDialog.Builder(this)
+                new AlertDialog.Builder(this, R.style.dialogStyle)
                         .setTitle("Information")
                         .setMessage("Are you sure to stop collection?")
+                        .setIcon(R.drawable.exc)
                         .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 new Thread(() -> _connectThread.sendData("stop")).start();
+                                _letter_s.clearAnimation();
+                                _letter_l.clearAnimation();
+                                _letter_a.clearAnimation();
+                                _letter_m.clearAnimation();
                             }
                         })
                         .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                             }
-                        }).create()
+                        })
+                        .create()
                         .show();
+
             } else {
                 Toast.makeText(MainActivity.this, "device isn't connected", Toast.LENGTH_SHORT).show();
             }
@@ -256,17 +297,27 @@ public class MainActivity extends AppCompatActivity {
         _listenerThread.start();
 
         // for time display
-        _timeDisplay_1 = findViewById(R.id.textview_time_1);
-        _timeDisplay_2 = findViewById(R.id.textview_time_2);
-        _timeDisplay_3 = findViewById(R.id.textview_time_3);
+        _timeDisplay_home = findViewById(R.id.textview_time_home);
+        this._timeDisplay_home.setOnClickListener(new DoubleClickListener() {
+            @Override
+            public void onDoubleClick(View v) {
+                _textViewDeviceConnectState.setText("");
+                _deviceMsg.setText("");
+                _rgbPath.setText("");
+                _depthPath.setText("");
+                _timeStamp.setText("");
+            }
+        });
+        _timeDisplay_wifi = findViewById(R.id.textview_time_wifi);
+        _timeDisplay_help = findViewById(R.id.textview_time_help);
         _timeDisplayHandler = new Handler(Looper.getMainLooper()) {
             @RequiresApi(api = Build.VERSION_CODES.O)
             @Override
             public void handleMessage(Message msg) {
                 String time = LocalDate.now().toString() + " " + LocalTime.now().toString();
-                _timeDisplay_1.setText(time);
-                _timeDisplay_2.setText(time);
-                _timeDisplay_3.setText(time);
+                _timeDisplay_wifi.setText(time);
+                _timeDisplay_home.setText(time);
+                _timeDisplay_help.setText(time);
             }
         };
         new Thread(() -> {
@@ -298,6 +349,8 @@ public class MainActivity extends AppCompatActivity {
         _speed.setText(this._wifiInfo.getLinkSpeed() + " Mbps");
         _frequency.setText(this._wifiInfo.getFrequency() + " MHz");
         _netId.setText(String.valueOf(this._wifiInfo.getNetworkId()));
+        _supState.setText(this._wifiInfo.getSupplicantState().toString());
+
 
         // if wifi is not turned on, set "_rightConnect" to "0" and return
         if (this._wifiManager.getWifiState() == WifiManager.WIFI_STATE_DISABLED) {
@@ -311,9 +364,6 @@ public class MainActivity extends AppCompatActivity {
 
         TextView port = findViewById(R.id.textview_port);
         port.setText(String.valueOf(DEVICE_PORT));
-
-
-        Log.d("---", _wifiInfo.getIpAddress() + " " + _wifiInfo.getSSID());
 
         this.checkTargetWiFi();
     }
@@ -343,6 +393,22 @@ public class MainActivity extends AppCompatActivity {
         intentFilter.addAction(WifiManager.NETWORK_STATE_CHANGED_ACTION);
         // register
         this.registerReceiver(_wifiStateReceiver, intentFilter);
+    }
+
+    public abstract static class DoubleClickListener implements View.OnClickListener {
+        private static final long DOUBLE_TIME = 1000;
+        private static long lastClickTime = 0;
+
+        @Override
+        public void onClick(View v) {
+            long currentTimeMillis = System.currentTimeMillis();
+            if (currentTimeMillis - lastClickTime < DOUBLE_TIME) {
+                onDoubleClick(v);
+            }
+            lastClickTime = currentTimeMillis;
+        }
+
+        public abstract void onDoubleClick(View v);
     }
 
     public static class ConnectThread extends Thread {
@@ -378,6 +444,7 @@ public class MainActivity extends AppCompatActivity {
                 int bytes;
                 // read stream data [get message]
                 while (true) {
+                    Thread.sleep(10);
                     bytes = inputStream.read(buffer);
                     // has data
                     if (bytes > 0) {
@@ -392,7 +459,7 @@ public class MainActivity extends AppCompatActivity {
                         handler.sendMessage(message);
                     }
                 }
-            } catch (IOException e) {
+            } catch (IOException | InterruptedException e) {
                 e.printStackTrace();
             }
         }
@@ -478,9 +545,7 @@ public class MainActivity extends AppCompatActivity {
                     break;
                 case WifiManager.WIFI_STATE_ENABLED:
                     Toast.makeText(context, "WiFi turned on", Toast.LENGTH_SHORT).show();
-
                     displayWifiInfo();
-
                     break;
                 case WifiManager.WIFI_STATE_UNKNOWN:
                     break;

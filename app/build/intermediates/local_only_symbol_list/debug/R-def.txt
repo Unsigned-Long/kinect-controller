@@ -1,10 +1,12 @@
 R_DEF: Internal format may change without notice
 local
+anim running
 array com_google_android_gms_fonts_certs
 array com_google_android_gms_fonts_certs_dev
 array com_google_android_gms_fonts_certs_prod
 array preloaded_fonts
 color black
+color dialog_color
 color purple_200
 color purple_500
 color purple_700
@@ -25,9 +27,12 @@ dimen small_margin_between_views
 dimen text_size
 drawable a
 drawable connect
+drawable dialog
 drawable e
+drawable exc
 drawable f
 drawable h
+drawable header
 drawable help
 drawable help_selector
 drawable help_true
@@ -58,6 +63,10 @@ id button_stop
 id frame_help
 id frame_slam
 id frame_wifi
+id img_a
+id img_l
+id img_m
+id img_s
 id nav_view
 id text_state
 id textview_depth
@@ -71,12 +80,14 @@ id textview_rgb
 id textview_rssi
 id textview_speed
 id textview_ssid
-id textview_time_1
-id textview_time_2
-id textview_time_3
+id textview_supstate
+id textview_time_help
+id textview_time_home
+id textview_time_wifi
 layout activity_main
 mipmap ic_launcher
 mipmap ic_launcher_round
 string app_name
 style Theme.Slam
+style dialogStyle
 style tabText

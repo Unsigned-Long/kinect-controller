@@ -11,78 +11,78 @@
 9-->/home/csl/AndroidProjects/Slam/app/src/main/AndroidManifest.xml
 10
 11    <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
-11-->/home/csl/AndroidProjects/Slam/app/src/main/AndroidManifest.xml:5:5-95
-11-->/home/csl/AndroidProjects/Slam/app/src/main/AndroidManifest.xml:5:22-76
+11-->/home/csl/AndroidProjects/Slam/app/src/main/AndroidManifest.xml:6:5-95
+11-->/home/csl/AndroidProjects/Slam/app/src/main/AndroidManifest.xml:6:22-76
 12    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
-12-->/home/csl/AndroidProjects/Slam/app/src/main/AndroidManifest.xml:6:5-92
-12-->/home/csl/AndroidProjects/Slam/app/src/main/AndroidManifest.xml:6:22-73
+12-->/home/csl/AndroidProjects/Slam/app/src/main/AndroidManifest.xml:7:5-92
+12-->/home/csl/AndroidProjects/Slam/app/src/main/AndroidManifest.xml:7:22-73
 13    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-13-->/home/csl/AndroidProjects/Slam/app/src/main/AndroidManifest.xml:7:5-95
-13-->/home/csl/AndroidProjects/Slam/app/src/main/AndroidManifest.xml:7:22-76
+13-->/home/csl/AndroidProjects/Slam/app/src/main/AndroidManifest.xml:8:5-95
+13-->/home/csl/AndroidProjects/Slam/app/src/main/AndroidManifest.xml:8:22-76
 14    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
-14-->/home/csl/AndroidProjects/Slam/app/src/main/AndroidManifest.xml:8:5-92
-14-->/home/csl/AndroidProjects/Slam/app/src/main/AndroidManifest.xml:8:22-73
+14-->/home/csl/AndroidProjects/Slam/app/src/main/AndroidManifest.xml:9:5-92
+14-->/home/csl/AndroidProjects/Slam/app/src/main/AndroidManifest.xml:9:22-73
 15    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
-15-->/home/csl/AndroidProjects/Slam/app/src/main/AndroidManifest.xml:10:5-91
-15-->/home/csl/AndroidProjects/Slam/app/src/main/AndroidManifest.xml:10:22-72
+15-->/home/csl/AndroidProjects/Slam/app/src/main/AndroidManifest.xml:11:5-91
+15-->/home/csl/AndroidProjects/Slam/app/src/main/AndroidManifest.xml:11:22-72
 16    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-16-->/home/csl/AndroidProjects/Slam/app/src/main/AndroidManifest.xml:11:5-97
-16-->/home/csl/AndroidProjects/Slam/app/src/main/AndroidManifest.xml:11:22-78
+16-->/home/csl/AndroidProjects/Slam/app/src/main/AndroidManifest.xml:12:5-97
+16-->/home/csl/AndroidProjects/Slam/app/src/main/AndroidManifest.xml:12:22-78
 17    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-17-->/home/csl/AndroidProjects/Slam/app/src/main/AndroidManifest.xml:12:5-95
-17-->/home/csl/AndroidProjects/Slam/app/src/main/AndroidManifest.xml:12:22-76
+17-->/home/csl/AndroidProjects/Slam/app/src/main/AndroidManifest.xml:13:5-95
+17-->/home/csl/AndroidProjects/Slam/app/src/main/AndroidManifest.xml:13:22-76
 18    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-18-->/home/csl/AndroidProjects/Slam/app/src/main/AndroidManifest.xml:13:5-96
-18-->/home/csl/AndroidProjects/Slam/app/src/main/AndroidManifest.xml:13:22-77
+18-->/home/csl/AndroidProjects/Slam/app/src/main/AndroidManifest.xml:14:5-96
+18-->/home/csl/AndroidProjects/Slam/app/src/main/AndroidManifest.xml:14:22-77
 19    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-19-->/home/csl/AndroidProjects/Slam/app/src/main/AndroidManifest.xml:14:5-97
-19-->/home/csl/AndroidProjects/Slam/app/src/main/AndroidManifest.xml:14:22-78
+19-->/home/csl/AndroidProjects/Slam/app/src/main/AndroidManifest.xml:15:5-97
+19-->/home/csl/AndroidProjects/Slam/app/src/main/AndroidManifest.xml:15:22-78
 20    <uses-permission android:name="android.permission.INTERNET" />
-20-->/home/csl/AndroidProjects/Slam/app/src/main/AndroidManifest.xml:16:5-66
-20-->/home/csl/AndroidProjects/Slam/app/src/main/AndroidManifest.xml:16:22-64
+20-->/home/csl/AndroidProjects/Slam/app/src/main/AndroidManifest.xml:17:5-66
+20-->/home/csl/AndroidProjects/Slam/app/src/main/AndroidManifest.xml:17:22-64
 21
 22    <application
-22-->/home/csl/AndroidProjects/Slam/app/src/main/AndroidManifest.xml:18:5-37:19
+22-->/home/csl/AndroidProjects/Slam/app/src/main/AndroidManifest.xml:19:5-38:19
 23        android:allowBackup="true"
-23-->/home/csl/AndroidProjects/Slam/app/src/main/AndroidManifest.xml:19:9-35
+23-->/home/csl/AndroidProjects/Slam/app/src/main/AndroidManifest.xml:20:9-35
 24        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
 24-->[androidx.core:core:1.5.0] /home/csl/.gradle/caches/transforms-3/a1605265a276ccaf05dba118648041ac/transformed/core-1.5.0/AndroidManifest.xml:24:18-86
 25        android:debuggable="true"
 26        android:icon="@drawable/ic"
-26-->/home/csl/AndroidProjects/Slam/app/src/main/AndroidManifest.xml:20:9-36
+26-->/home/csl/AndroidProjects/Slam/app/src/main/AndroidManifest.xml:21:9-36
 27        android:label="@string/app_name"
-27-->/home/csl/AndroidProjects/Slam/app/src/main/AndroidManifest.xml:21:9-41
+27-->/home/csl/AndroidProjects/Slam/app/src/main/AndroidManifest.xml:22:9-41
 28        android:roundIcon="@mipmap/ic_launcher_round"
-28-->/home/csl/AndroidProjects/Slam/app/src/main/AndroidManifest.xml:22:9-54
+28-->/home/csl/AndroidProjects/Slam/app/src/main/AndroidManifest.xml:23:9-54
 29        android:supportsRtl="true"
-29-->/home/csl/AndroidProjects/Slam/app/src/main/AndroidManifest.xml:23:9-35
+29-->/home/csl/AndroidProjects/Slam/app/src/main/AndroidManifest.xml:24:9-35
 30        android:testOnly="true"
 31        android:theme="@style/Theme.Slam" >
-31-->/home/csl/AndroidProjects/Slam/app/src/main/AndroidManifest.xml:24:9-42
+31-->/home/csl/AndroidProjects/Slam/app/src/main/AndroidManifest.xml:25:9-42
 32        <activity
-32-->/home/csl/AndroidProjects/Slam/app/src/main/AndroidManifest.xml:25:9-33:20
+32-->/home/csl/AndroidProjects/Slam/app/src/main/AndroidManifest.xml:26:9-34:20
 33            android:name="com.example.slam.MainActivity"
-33-->/home/csl/AndroidProjects/Slam/app/src/main/AndroidManifest.xml:26:13-41
+33-->/home/csl/AndroidProjects/Slam/app/src/main/AndroidManifest.xml:27:13-41
 34            android:exported="true" >
-34-->/home/csl/AndroidProjects/Slam/app/src/main/AndroidManifest.xml:27:13-36
+34-->/home/csl/AndroidProjects/Slam/app/src/main/AndroidManifest.xml:28:13-36
 35            <intent-filter>
-35-->/home/csl/AndroidProjects/Slam/app/src/main/AndroidManifest.xml:28:13-32:29
+35-->/home/csl/AndroidProjects/Slam/app/src/main/AndroidManifest.xml:29:13-33:29
 36                <action android:name="android.intent.action.MAIN" />
-36-->/home/csl/AndroidProjects/Slam/app/src/main/AndroidManifest.xml:29:17-69
-36-->/home/csl/AndroidProjects/Slam/app/src/main/AndroidManifest.xml:29:25-66
+36-->/home/csl/AndroidProjects/Slam/app/src/main/AndroidManifest.xml:30:17-69
+36-->/home/csl/AndroidProjects/Slam/app/src/main/AndroidManifest.xml:30:25-66
 37
 38                <category android:name="android.intent.category.LAUNCHER" />
-38-->/home/csl/AndroidProjects/Slam/app/src/main/AndroidManifest.xml:31:17-77
-38-->/home/csl/AndroidProjects/Slam/app/src/main/AndroidManifest.xml:31:27-74
+38-->/home/csl/AndroidProjects/Slam/app/src/main/AndroidManifest.xml:32:17-77
+38-->/home/csl/AndroidProjects/Slam/app/src/main/AndroidManifest.xml:32:27-74
 39            </intent-filter>
 40        </activity>
 41
 42        <meta-data
-42-->/home/csl/AndroidProjects/Slam/app/src/main/AndroidManifest.xml:34:9-36:57
+42-->/home/csl/AndroidProjects/Slam/app/src/main/AndroidManifest.xml:35:9-37:57
 43            android:name="preloaded_fonts"
-43-->/home/csl/AndroidProjects/Slam/app/src/main/AndroidManifest.xml:35:13-43
+43-->/home/csl/AndroidProjects/Slam/app/src/main/AndroidManifest.xml:36:13-43
 44            android:resource="@array/preloaded_fonts" />
-44-->/home/csl/AndroidProjects/Slam/app/src/main/AndroidManifest.xml:36:13-54
+44-->/home/csl/AndroidProjects/Slam/app/src/main/AndroidManifest.xml:37:13-54
 45    </application>
 46
 47</manifest>

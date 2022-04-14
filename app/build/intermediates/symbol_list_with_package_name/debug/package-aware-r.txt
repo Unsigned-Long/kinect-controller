@@ -31,6 +31,7 @@ anim fragment_fast_out_extra_slow_in
 anim mtrl_bottom_sheet_slide_in
 anim mtrl_bottom_sheet_slide_out
 anim mtrl_card_lowers_interpolator
+anim running
 animator design_appbar_state_list_animator
 animator design_fab_hide_motion_spec
 animator design_fab_show_motion_spec
@@ -1055,6 +1056,7 @@ color design_fab_stroke_top_inner_color
 color design_fab_stroke_top_outer_color
 color design_icon_tint
 color design_snackbar_background_color
+color dialog_color
 color dim_foreground_disabled_material_dark
 color dim_foreground_disabled_material_light
 color dim_foreground_material_dark
@@ -1713,9 +1715,12 @@ drawable design_ic_visibility
 drawable design_ic_visibility_off
 drawable design_password_eye
 drawable design_snackbar_background
+drawable dialog
 drawable e
+drawable exc
 drawable f
 drawable h
+drawable header
 drawable help
 drawable help_selector
 drawable help_true
@@ -1978,6 +1983,10 @@ id ifRoom
 id ignore
 id ignoreRequest
 id image
+id img_a
+id img_l
+id img_m
+id img_s
 id info
 id invisible
 id inward
@@ -2192,9 +2201,10 @@ id textview_rgb
 id textview_rssi
 id textview_speed
 id textview_ssid
-id textview_time_1
-id textview_time_2
-id textview_time_3
+id textview_supstate
+id textview_time_help
+id textview_time_home
+id textview_time_wifi
 id time
 id title
 id titleDividerNoCustom
@@ -3209,6 +3219,7 @@ style Widget_MaterialComponents_Toolbar_PrimarySurface
 style Widget_MaterialComponents_Toolbar_Surface
 style Widget_MaterialComponents_Tooltip
 style Widget_Support_CoordinatorLayout
+style dialogStyle
 style tabText
 styleable ActionBar background backgroundSplit backgroundStacked contentInsetEnd contentInsetEndWithActions contentInsetLeft contentInsetRight contentInsetStart contentInsetStartWithNavigation customNavigationLayout displayOptions divider elevation height hideOnContentScroll homeAsUpIndicator homeLayout icon indeterminateProgressStyle itemPadding logo navigationMode popupTheme progressBarPadding progressBarStyle subtitle subtitleTextStyle title titleTextStyle
 styleable ActionBarLayout android_layout_gravity

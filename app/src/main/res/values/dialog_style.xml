@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+
+    <style name="dialogStyle" parent="Theme.AppCompat.Light.Dialog.Alert">
+
+        <item name="fontFamily">@font/ubuntu_mono</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:windowBackground">@drawable/dialog</item>
+
+    </style>
+</resources>

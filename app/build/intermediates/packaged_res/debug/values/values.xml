@@ -18,6 +18,7 @@
         <item>@font/ubuntu_mono</item>
     </array>
     <color name="black">#FF000000</color>
+    <color name="dialog_color">#CEFFFFFF</color>
     <color name="purple_200">#FFBB86FC</color>
     <color name="purple_500">#FF6200EE</color>
     <color name="purple_700">#FF3700B3</color>
@@ -49,6 +50,13 @@
         
         <item name="android:statusBarColor" ns1:targetApi="l">?attr/colorPrimaryVariant</item>
         
+    </style>
+    <style name="dialogStyle" parent="Theme.AppCompat.Light.Dialog.Alert">
+
+        <item name="fontFamily">@font/ubuntu_mono</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:windowBackground">@drawable/dialog</item>
+
     </style>
     <style name="tabText" parent="TextAppearance.Design.Tab">
 
