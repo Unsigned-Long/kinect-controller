@@ -12,4 +12,5 @@
     <dimen name="border_width_weight">3dp</dimen>
     <dimen name="img_height">60dp</dimen>
     <dimen name="padding_small">15dp</dimen>
+    <dimen name="LineChart_height">200dp</dimen>
 </resources>
