@@ -56,52 +56,54 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
-    /**
-     * max length for line chart drawing
-     */
-    private final Integer _MAX_LIST_ITEMS = 20;
-
     public static final int DEVICE_CONNECTING = 1;
     public static final int DEVICE_CONNECTED = 2;
     public static final int SEND_MSG_SUCCESS = 3;
     public static final int SEND_MSG_ERROR = 4;
     public static final int GET_IMG_SUCCESS = 5;
     public static final int GET_MSG_SUCCESS = 6;
-    public static final int IMG_BYTE_SIZE = 10000;
 
     // this is the port
     public static final int DEVICE_MSG_PORT = 3890;
     public static final int DEVICE_IMG_PORT = 9988;
+
     private static final String _targetWiFiSSID = "slam";
     private static final String _targetHostName = "slam-device";
 
-//    private static final String _targetWiFiSSID = "Juster";
-//    private static final String _targetHostName = "whu-ubuntu";
+    //    private static final String _targetWiFiSSID = "Juster";
+    //    private static final String _targetHostName = "whu-ubuntu";
 
     // message flags
-    private static final String COLOR_DEPTH_TIME = "0::";
-    private static final String INFO_MESSAGE_TEXTVIEW = "1::";
-    private static final String INFO_MESSAGE_TOAST = "2::";
-    private static final String IMU_MESSAGE = "3::";
+    private static final String COLOR_DEPTH_TIME = "0";
+    private static final String INFO_MESSAGE_TEXTVIEW = "1";
+    private static final String INFO_MESSAGE_TOAST = "2";
+    private static final String IMU_MESSAGE = "3";
+
+    // max length for line chart drawing
+    private final Integer _MAX_LIST_ITEMS = 20;
+
     // wifi
     private WifiManager _wifiManager;
     private WifiInfo _wifiInfo;
+
     //  "0": wifi not turned on
     //  "1": wifi turned on and connect to target wifi
     // "-1": wifi turned on but not connect to target wifi
     private int _targetWiFiConnected;
     private WifiStateBroadcastReceive _wifiStateReceiver;
+
     // textview [wifi info]
-    private TextView _textViewDeviceConnectState;
-    private TextView _timeDisplay_wifi, _timeDisplay_home, _timeDisplay_help;
-    private TextView _ssid;
-    private TextView _rssi;
-    private TextView _speed;
-    private TextView _frequency;
-    private TextView _netId;
-    private TextView _deviceMsg;
-    private TextView _rgbPath, _depthPath, _timeStamp;
-    private TextView _supState;
+    private TextView _tv_deviceConnectState;
+    private TextView _tv_timeDisplay_wifi, _tv_timeDisplay_home, _tv_timeDisplay_help;
+    private TextView _tv_ssid;
+    private TextView _tv_rssi;
+    private TextView _tv_speed;
+    private TextView _tv_frequency;
+    private TextView _tv_netId;
+    private TextView _tv_deviceMsg;
+    private TextView _tv_rgbPath, _tv_depthPath, _tv_timeStamp;
+    private TextView _tv_supState;
+
     // imu
     private TextView _tv_ax;
     private TextView _tv_ay;
@@ -113,15 +115,24 @@ public class MainActivity extends AppCompatActivity {
     private LineChart _acceLineChart;
     private LinkedList<DataItem> _gyroscope;
     private LineChart _gyroLineChart;
+
+    // image construct
+    private byte[] _colorImageBuffer;
+    private int _curColorImageBufferIdx;
+
     // image
-    private ImageView _letter_s, _letter_l, _letter_a, _letter_m;
+    private ImageView _iv_letter_s, _iv_letter_l, _iv_letter_a, _iv_letter_m;
+
     // double buffer
-    private SurfaceView _colorImage;
+    private SurfaceView _sv_colorImage;
+
     // handler
     private Handler _timeDisplayHandler;
     private Handler _msgHandler;
+
     // frame
     private FrameLayout _frameSlam, _frameWifi, _frameHelp;
+
     // tcp [msg, img]
     private ConnectThread _connectionForMsg;
     private ListenerThread _listenerMsgThread;
@@ -149,58 +160,110 @@ public class MainActivity extends AppCompatActivity {
                 (ip >> 24 & 0xFF);
     }
 
-    public void handleReceivedMsg(String str) {
+    public void handleReceivedMsg(String msgString) {
+        Log.d("---", msgString);
 
-        if (str.startsWith(INFO_MESSAGE_TEXTVIEW)) {
-            _deviceMsg.setText(str.substring(3));
-        } else if (str.startsWith(COLOR_DEPTH_TIME)) {
-            String[] strAry = str.substring(3).split(":");
-            _rgbPath.setText(strAry[0]);
-            _depthPath.setText(strAry[1]);
-            _timeStamp.setText(strAry[2]);
-        } else if (str.startsWith(INFO_MESSAGE_TOAST)) {
-            _deviceMsg.setText(str.substring(3));
-            Toast.makeText(MainActivity.this, str.substring(3), Toast.LENGTH_SHORT).show();
-        } else if (str.startsWith(IMU_MESSAGE)) {
-            Log.d("--imu--",str.substring(3));
-            DecimalFormat ft = new DecimalFormat("+00.0000;-00.0000");
-
-            String[] strAry = str.substring(3).split(" ");
-
-            float ax = Float.parseFloat(strAry[0]);
-            float ay = Float.parseFloat(strAry[1]);
-            float az = Float.parseFloat(strAry[2]);
-            this._acceleration.add(new DataItem(new float[]{ax, ay, az}));
-            if (this._acceleration.size() > this._MAX_LIST_ITEMS) {
-                this._acceleration.removeFirst();
+        String[] strItems = msgString.split("#");
+        for (String strItem : strItems) {
+            if (strItem.isEmpty()) {
+                continue;
             }
 
-            // set content for the text views
-            this._tv_ax.setText(ft.format(ax));
-            this._tv_ay.setText(ft.format(ay));
-            this._tv_az.setText(ft.format(az));
+            if (strItem.startsWith(INFO_MESSAGE_TEXTVIEW)) {
+                _tv_deviceMsg.setText(strItem.substring(1));
+            } else if (strItem.startsWith(COLOR_DEPTH_TIME)) {
+                String[] strAry = strItem.substring(1).split(":");
+                if (strAry.length != 3) {
+                    continue;
+                }
+                _tv_rgbPath.setText(strAry[0]);
+                _tv_depthPath.setText(strAry[1]);
+                _tv_timeStamp.setText(strAry[2]);
 
-            this.drawLineChart(this._acceLineChart, this._acceleration, "A(x)", "A(y)", "A(z)");
+            } else if (strItem.startsWith(INFO_MESSAGE_TOAST)) {
+                _tv_deviceMsg.setText(strItem.substring(1));
+                Toast.makeText(MainActivity.this, strItem.substring(1), Toast.LENGTH_SHORT).show();
+            } else if (strItem.startsWith(IMU_MESSAGE)) {
+                DecimalFormat format = new DecimalFormat("+00.0000;-00.0000");
 
-            float gx = Float.parseFloat(strAry[3]);
-            float gy = Float.parseFloat(strAry[4]);
-            float gz = Float.parseFloat(strAry[5]);
+                String[] strAry = strItem.substring(1).split(" ");
+                if (strAry.length != 6) {
+                    continue;
+                }
 
-            this._gyroscope.add(new DataItem(new float[]{gx, gy, gz}));
-            if (this._gyroscope.size() > this._MAX_LIST_ITEMS) {
-                this._gyroscope.removeFirst();
+                float ax = Float.parseFloat(strAry[0]);
+                float ay = Float.parseFloat(strAry[1]);
+                float az = Float.parseFloat(strAry[2]);
+                this._acceleration.add(new DataItem(new float[]{ax, ay, az}));
+                if (this._acceleration.size() > this._MAX_LIST_ITEMS) {
+                    this._acceleration.removeFirst();
+                }
+
+                // set content for the text views
+                this._tv_ax.setText(format.format(ax));
+                this._tv_ay.setText(format.format(ay));
+                this._tv_az.setText(format.format(az));
+
+                this.drawLineChart(this._acceLineChart, this._acceleration, "A(x)", "A(y)", "A(z)");
+
+                float gx = Float.parseFloat(strAry[3]);
+                float gy = Float.parseFloat(strAry[4]);
+                float gz = Float.parseFloat(strAry[5]);
+
+                this._gyroscope.add(new DataItem(new float[]{gx, gy, gz}));
+                if (this._gyroscope.size() > this._MAX_LIST_ITEMS) {
+                    this._gyroscope.removeFirst();
+                }
+
+                // set content for the text views
+                this._tv_gx.setText(format.format(gx));
+                this._tv_gy.setText(format.format(gy));
+                this._tv_gz.setText(format.format(gz));
+
+                // draw
+                this.drawLineChart(this._gyroLineChart, this._gyroscope, "G(x)", "G(y)", "G(z)");
             }
-
-            // set content for the text views
-            this._tv_gx.setText(ft.format(gx));
-            this._tv_gy.setText(ft.format(gy));
-            this._tv_gz.setText(ft.format(gz));
-
-            // draw
-            this.drawLineChart(this._gyroLineChart, this._gyroscope, "G(x)", "G(y)", "G(z)");
         }
+    }
 
-        Log.d("---", str);
+    public void handleReceivedImg(byte[] buffer) {
+        byte[] header = {buffer[0]};
+
+        // TODO: 4/16/22 check the image left size
+        if (new String(header).equals("E")) {
+            // end
+            byte[] length = {buffer[1], buffer[2], buffer[3], buffer[4]};
+            int leftSize = Integer.valueOf(new String(length));
+
+            Log.d("---", "end image, left size: [" + leftSize + "]");
+
+            System.arraycopy(buffer, 5, _colorImageBuffer, _curColorImageBufferIdx, leftSize);
+            _curColorImageBufferIdx += leftSize;
+
+            Bitmap bitmap = BitmapFactory.decodeByteArray(_colorImageBuffer, 0, _curColorImageBufferIdx);
+            if (bitmap == null) {
+                return;
+            }
+            // TODO: 4/15/22 show image
+            Canvas canvas = _sv_colorImage.getHolder().lockCanvas();
+
+            // range [source image]
+            Rect srcRect = new Rect(0, 0, bitmap.getWidth(), bitmap.getHeight());
+            // range [surface image]
+            Rect dstRect = new Rect(0, 0, _sv_colorImage.getWidth(), _sv_colorImage.getHeight());
+            canvas.drawBitmap(bitmap, srcRect, dstRect, null);
+
+            _sv_colorImage.getHolder().unlockCanvasAndPost(canvas);
+
+            _curColorImageBufferIdx = 0;
+
+        } else if (new String(header).equals("S")) {
+            // new image
+            Log.d("---", "receiving an image... size [2043]");
+
+            System.arraycopy(buffer, 5, _colorImageBuffer, _curColorImageBufferIdx, 2043);
+            _curColorImageBufferIdx += 2043;
+        }
     }
 
     public <T extends DataItem>
@@ -277,7 +340,7 @@ public class MainActivity extends AppCompatActivity {
         rightAxis.setDrawAxisLine(false);
 
 
-        chart.animateXY(0,0);
+        chart.animateXY(0, 0);
         chart.getDescription().setTextSize(12);
         chart.getDescription().setTextColor(Color.parseColor("#DC4949"));
         chart.getDescription().setTypeface(Typeface.create("Ubuntu Mono", Typeface.BOLD_ITALIC));
@@ -292,6 +355,10 @@ public class MainActivity extends AppCompatActivity {
 
     @SuppressLint("SetTextI18n")
     public void initVariables() {
+        // bytes
+        _colorImageBuffer = new byte[50000];
+        _curColorImageBufferIdx = 0;
+
         // acce, gyro
         this._tv_ax = findViewById(R.id.acce_x);
         this._tv_ay = findViewById(R.id.acce_y);
@@ -307,7 +374,7 @@ public class MainActivity extends AppCompatActivity {
         this._acceLineChart.setNoDataTextTypeface(Typeface.create("Ubuntu Mono", Typeface.BOLD_ITALIC));
         this._acceLineChart.getDescription().setText("Unit(M/S^2)");
 
-        this._gyroLineChart =findViewById(R.id.linechart_gyro);
+        this._gyroLineChart = findViewById(R.id.linechart_gyro);
         this._gyroLineChart.setNoDataText("NO DATA FOR GYROSCOPE");
         this._gyroLineChart.setNoDataTextColor(Color.RED);
         this._gyroLineChart.setNoDataTextTypeface(Typeface.create("Ubuntu Mono", Typeface.BOLD_ITALIC));
@@ -358,24 +425,24 @@ public class MainActivity extends AppCompatActivity {
         this._wifiStateReceiver = new WifiStateBroadcastReceive();
 
         // textview
-        _ssid = findViewById(R.id.textview_ssid);
-        _rssi = findViewById(R.id.textview_rssi);
-        _speed = findViewById(R.id.textview_speed);
-        _frequency = findViewById(R.id.textview_frequency);
-        _netId = findViewById(R.id.textview_netId);
-        _deviceMsg = findViewById(R.id.textview_deviceMsg);
-        _rgbPath = findViewById(R.id.textview_rgb);
-        _depthPath = findViewById(R.id.textview_depth);
-        _timeStamp = findViewById(R.id.textview_imgTime);
-        _supState = findViewById(R.id.textview_supstate);
+        _tv_ssid = findViewById(R.id.textview_ssid);
+        _tv_rssi = findViewById(R.id.textview_rssi);
+        _tv_speed = findViewById(R.id.textview_speed);
+        _tv_frequency = findViewById(R.id.textview_frequency);
+        _tv_netId = findViewById(R.id.textview_netId);
+        _tv_deviceMsg = findViewById(R.id.textview_deviceMsg);
+        _tv_rgbPath = findViewById(R.id.textview_rgb);
+        _tv_depthPath = findViewById(R.id.textview_depth);
+        _tv_timeStamp = findViewById(R.id.textview_imgTime);
+        _tv_supState = findViewById(R.id.textview_supstate);
 
         // images
-        _letter_s = findViewById(R.id.img_s);
-        _letter_l = findViewById(R.id.img_l);
-        _letter_a = findViewById(R.id.img_a);
-        _letter_m = findViewById(R.id.img_m);
-        _colorImage = findViewById(R.id.rgb8_image);
-        _colorImage.getHolder().addCallback(new SurfaceHolder.Callback() {
+        _iv_letter_s = findViewById(R.id.img_s);
+        _iv_letter_l = findViewById(R.id.img_l);
+        _iv_letter_a = findViewById(R.id.img_a);
+        _iv_letter_m = findViewById(R.id.img_m);
+        _sv_colorImage = findViewById(R.id.rgb8_image);
+        _sv_colorImage.getHolder().addCallback(new SurfaceHolder.Callback() {
 
             @Override
             public void surfaceCreated(SurfaceHolder surfaceHolder) {
@@ -409,8 +476,8 @@ public class MainActivity extends AppCompatActivity {
         });
 
         // tcp
-        this._textViewDeviceConnectState = findViewById(R.id.text_state);
-
+        this._tv_deviceConnectState = findViewById(R.id.text_state);
+        // message handler
         _msgHandler = new Handler(Looper.getMainLooper()) {
             @SuppressLint("SetTextI18n")
             @Override
@@ -430,50 +497,30 @@ public class MainActivity extends AppCompatActivity {
 
                     case DEVICE_CONNECTED:
                         // show message
-                        _textViewDeviceConnectState.setText("Device Connected Successfully");
+                        _tv_deviceConnectState.setText("Device Connected Successfully");
                         break;
 
                     case SEND_MSG_SUCCESS:
                         // show success message
-                        _textViewDeviceConnectState.setText("Message Sent Successfully [" + msg.getData().getString("MSG") + "]");
+                        _tv_deviceConnectState.setText("Message Sent Successfully [" + msg.getData().getString("MSG") + "]");
                         break;
 
                     case SEND_MSG_ERROR:
                         // show error message
-                        _textViewDeviceConnectState.setText("Failed To Send Message [" + msg.getData().getString("MSG") + "]");
+                        _tv_deviceConnectState.setText("Failed To Send Message [" + msg.getData().getString("MSG") + "]");
                         break;
 
                     case GET_MSG_SUCCESS:
                         // show received message
                         String message = msg.getData().getString("MSG");
-                        Log.d("---", "I get a message, string length: " + message.length());
+//                        Log.d("---", "I get a message, string length: " + message.length());
                         handleReceivedMsg(message);
                         break;
 
                     case GET_IMG_SUCCESS:
                         byte[] bys = msg.getData().getByteArray("MSG");
-                        Bitmap bitmap = BitmapFactory.decodeByteArray(bys, 0, bys.length);
-                        if (bitmap == null) {
-                            return;
-                        }
+                        handleReceivedImg(bys);
 
-                        // show image
-                        Log.d("---", "I get an image, byte length: " + bys.length);
-
-                        // TODO: 4/15/22 show image
-
-                        // draw color image
-                        Canvas canvas = _colorImage.getHolder().lockCanvas();
-                        if (canvas == null) {
-                            Log.d("---", "canvas is null");
-                            return;
-                        }
-                        Rect srcRect = new Rect(0, 0, bitmap.getWidth(), bitmap.getHeight());
-                        Rect dstRect = new Rect(0, 0, _colorImage.getWidth(), _colorImage.getHeight());
-                        canvas.drawBitmap(bitmap, srcRect, dstRect, null);
-                        _colorImage.getHolder().unlockCanvasAndPost(canvas);
-
-                        Log.d("---", "draw image finished!");
                     default:
                 }
             }
@@ -506,7 +553,7 @@ public class MainActivity extends AppCompatActivity {
 
                     } catch (IOException e) {
                         e.printStackTrace();
-                        runOnUiThread(() -> _textViewDeviceConnectState.setText("Connect failed, Server Not Running"));
+                        runOnUiThread(() -> _tv_deviceConnectState.setText("Connect failed, Server Not Running"));
                     }
                 }).start();
             }
@@ -519,10 +566,10 @@ public class MainActivity extends AppCompatActivity {
 
                 Animation animation = AnimationUtils.loadAnimation(MainActivity.this, R.anim.running);
 
-                _letter_s.startAnimation(animation);
-                _letter_l.startAnimation(animation);
-                _letter_a.startAnimation(animation);
-                _letter_m.startAnimation(animation);
+                _iv_letter_s.startAnimation(animation);
+                _iv_letter_l.startAnimation(animation);
+                _iv_letter_a.startAnimation(animation);
+                _iv_letter_m.startAnimation(animation);
 
             } else {
                 Toast.makeText(MainActivity.this, "device isn't connected", Toast.LENGTH_SHORT).show();
@@ -538,10 +585,10 @@ public class MainActivity extends AppCompatActivity {
                         .setIcon(R.drawable.exc)
                         .setPositiveButton("Yes", (dialog, which) -> {
                             new Thread(() -> _connectionForMsg.sendData("stop")).start();
-                            _letter_s.clearAnimation();
-                            _letter_l.clearAnimation();
-                            _letter_a.clearAnimation();
-                            _letter_m.clearAnimation();
+                            _iv_letter_s.clearAnimation();
+                            _iv_letter_l.clearAnimation();
+                            _iv_letter_a.clearAnimation();
+                            _iv_letter_m.clearAnimation();
                         })
                         .setNegativeButton("Cancel", (dialog, which) -> {
                         })
@@ -560,18 +607,18 @@ public class MainActivity extends AppCompatActivity {
         _listenerImgThread.start();
 
         // for time display
-        _timeDisplay_home = findViewById(R.id.textview_time_home);
-        _timeDisplay_wifi = findViewById(R.id.textview_time_wifi);
-        _timeDisplay_help = findViewById(R.id.textview_time_help);
+        _tv_timeDisplay_home = findViewById(R.id.textview_time_home);
+        _tv_timeDisplay_wifi = findViewById(R.id.textview_time_wifi);
+        _tv_timeDisplay_help = findViewById(R.id.textview_time_help);
         // double click event
-        this._timeDisplay_home.setOnClickListener(new DoubleClickListener() {
+        this._tv_timeDisplay_home.setOnClickListener(new DoubleClickListener() {
             @Override
             public void onDoubleClick(View v) {
-                _textViewDeviceConnectState.setText("");
-                _deviceMsg.setText("");
-                _rgbPath.setText("");
-                _depthPath.setText("");
-                _timeStamp.setText("");
+                _tv_deviceConnectState.setText("");
+                _tv_deviceMsg.setText("");
+                _tv_rgbPath.setText("");
+                _tv_depthPath.setText("");
+                _tv_timeStamp.setText("");
                 _tv_ax.setText("");
                 _tv_ay.setText("");
                 _tv_az.setText("");
@@ -586,9 +633,9 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void handleMessage(Message msg) {
                 String time = LocalDate.now().toString() + " " + LocalTime.now().toString();
-                _timeDisplay_wifi.setText(time);
-                _timeDisplay_home.setText(time);
-                _timeDisplay_help.setText(time);
+                _tv_timeDisplay_wifi.setText(time);
+                _tv_timeDisplay_home.setText(time);
+                _tv_timeDisplay_help.setText(time);
             }
         };
         new Thread(() -> {
@@ -614,13 +661,13 @@ public class MainActivity extends AppCompatActivity {
 
         // display
 
-        _ssid.setText(this._wifiInfo.getSSID());
+        _tv_ssid.setText(this._wifiInfo.getSSID());
         Log.d("-----------", this._wifiInfo.toString());
-        _rssi.setText(String.valueOf(this._wifiInfo.getRssi()));
-        _speed.setText(this._wifiInfo.getLinkSpeed() + " Mbps");
-        _frequency.setText(this._wifiInfo.getFrequency() + " MHz");
-        _netId.setText(String.valueOf(this._wifiInfo.getNetworkId()));
-        _supState.setText(this._wifiInfo.getSupplicantState().toString());
+        _tv_rssi.setText(String.valueOf(this._wifiInfo.getRssi()));
+        _tv_speed.setText(this._wifiInfo.getLinkSpeed() + " Mbps");
+        _tv_frequency.setText(this._wifiInfo.getFrequency() + " MHz");
+        _tv_netId.setText(String.valueOf(this._wifiInfo.getNetworkId()));
+        _tv_supState.setText(this._wifiInfo.getSupplicantState().toString());
 
 
         // if wifi is not turned on, set "_rightConnect" to "0" and return
@@ -711,35 +758,62 @@ public class MainActivity extends AppCompatActivity {
                 // get streams
                 inputStream = socket.getInputStream();
                 outputStream = socket.getOutputStream();
-                int size = 0;
-                if (_successfulMsgType == MainActivity.GET_MSG_SUCCESS) {
-                    size = 1024;
-                } else if (_successfulMsgType == MainActivity.GET_IMG_SUCCESS) {
-                    size = MainActivity.IMG_BYTE_SIZE;
-                }
-                byte[] buffer = new byte[size];
+                byte[] buffer = new byte[2048];
                 int bytes;
                 // read stream data [get message]
                 while (true) {
                     Thread.sleep(10);
-                    bytes = inputStream.read(buffer);
-                    // has data
-                    if (bytes > 0) {
-                        final byte[] data = new byte[bytes];
-                        System.arraycopy(buffer, 0, data, 0, bytes);
+                    if (_successfulMsgType == MainActivity.GET_MSG_SUCCESS) {
+                        bytes = inputStream.read(buffer);
+                        if (bytes > 0) {
+                            final byte[] data = new byte[bytes];
+                            System.arraycopy(buffer, 0, data, 0, bytes);
+                            Message message = Message.obtain();
+                            message.what = _successfulMsgType;
+                            Bundle bundle = new Bundle();
+                            // get text message
+                            bundle.putString("MSG", new String(data));
+                            message.setData(bundle);
+                            handler.sendMessage(message);
+                        }
+                    } else if (_successfulMsgType == MainActivity.GET_IMG_SUCCESS) {
+                        // if size is not enough
+                        int curSize = 0;
+                        byte[] data = new byte[2048];
+                        while (curSize < 2048) {
+                            bytes = inputStream.read(buffer, 0, 2048 - curSize);
+                            if (bytes > 0) {
+                                System.arraycopy(buffer, 0, data, curSize, bytes);
+                                curSize += bytes;
+                            }
+                        }
                         Message message = Message.obtain();
                         message.what = _successfulMsgType;
                         Bundle bundle = new Bundle();
-                        if (_successfulMsgType == MainActivity.GET_MSG_SUCCESS) {
-                            // get text message
-                            bundle.putString("MSG", new String(data));
-                        } else if (_successfulMsgType == MainActivity.GET_IMG_SUCCESS) {
-                            // get image
-                            bundle.putByteArray("MSG", data);
-                        }
+                        // get image
+                        bundle.putByteArray("MSG", data);
                         message.setData(bundle);
                         handler.sendMessage(message);
                     }
+
+//                    bytes = inputStream.read(buffer);
+//                    // has data
+//                    if (bytes > 0) {
+//                        final byte[] data = new byte[bytes];
+//                        System.arraycopy(buffer, 0, data, 0, bytes);
+//                        Message message = Message.obtain();
+//                        message.what = _successfulMsgType;
+//                        Bundle bundle = new Bundle();
+//                        if (_successfulMsgType == MainActivity.GET_MSG_SUCCESS) {
+//                            // get text message
+//                            bundle.putString("MSG", new String(data));
+//                        } else if (_successfulMsgType == MainActivity.GET_IMG_SUCCESS) {
+//                            // get image
+//                            bundle.putByteArray("MSG", data);
+//                        }
+//                        message.setData(bundle);
+//                        handler.sendMessage(message);
+//                    }
                 }
             } catch (IOException | InterruptedException e) {
                 e.printStackTrace();
@@ -815,6 +889,14 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    static class DataItem {
+        float[] _values;
+
+        DataItem(float[] values) {
+            this._values = values;
+        }
+    }
+
     class WifiStateBroadcastReceive extends BroadcastReceiver {
 
         @Override
@@ -836,14 +918,6 @@ public class MainActivity extends AppCompatActivity {
             if (intent.getAction().equals(WifiManager.NETWORK_STATE_CHANGED_ACTION)) {
                 displayWifiInfo();
             }
-        }
-    }
-
-    static class DataItem {
-        float[] _values;
-
-        DataItem(float[] values) {
-            this._values = values;
         }
     }
 }

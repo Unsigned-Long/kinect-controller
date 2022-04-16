@@ -42,7 +42,7 @@
 20-->/home/csl/AndroidProjects/Slam/app/src/main/AndroidManifest.xml:17:22-64
 21
 22    <application
-22-->/home/csl/AndroidProjects/Slam/app/src/main/AndroidManifest.xml:19:5-38:19
+22-->/home/csl/AndroidProjects/Slam/app/src/main/AndroidManifest.xml:19:5-35:19
 23        android:allowBackup="true"
 23-->/home/csl/AndroidProjects/Slam/app/src/main/AndroidManifest.xml:20:9-35
 24        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
@@ -76,13 +76,6 @@
 38-->/home/csl/AndroidProjects/Slam/app/src/main/AndroidManifest.xml:32:27-74
 39            </intent-filter>
 40        </activity>
-41
-42        <meta-data
-42-->/home/csl/AndroidProjects/Slam/app/src/main/AndroidManifest.xml:35:9-37:57
-43            android:name="preloaded_fonts"
-43-->/home/csl/AndroidProjects/Slam/app/src/main/AndroidManifest.xml:36:13-43
-44            android:resource="@array/preloaded_fonts" />
-44-->/home/csl/AndroidProjects/Slam/app/src/main/AndroidManifest.xml:37:13-54
-45    </application>
-46
-47</manifest>
+41    </application>
+42
+43</manifest>

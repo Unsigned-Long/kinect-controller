@@ -80,12 +80,12 @@
         "source": "/home/csl/AndroidProjects/Slam/app/src/main/res/drawable-v24/h.png"
     },
     {
-        "merged": "/home/csl/AndroidProjects/Slam/app/build/intermediates/merged_res/debug/drawable-v24_header.xml.flat",
-        "source": "/home/csl/AndroidProjects/Slam/app/src/main/res/drawable-v24/header.xml"
-    },
-    {
         "merged": "/home/csl/AndroidProjects/Slam/app/build/intermediates/merged_res/debug/drawable-v24_wifi.png.flat",
         "source": "/home/csl/AndroidProjects/Slam/app/src/main/res/drawable-v24/wifi.png"
+    },
+    {
+        "merged": "/home/csl/AndroidProjects/Slam/app/build/intermediates/merged_res/debug/drawable-v24_header.xml.flat",
+        "source": "/home/csl/AndroidProjects/Slam/app/src/main/res/drawable-v24/header.xml"
     },
     {
         "merged": "/home/csl/AndroidProjects/Slam/app/build/intermediates/merged_res/debug/drawable-v24_e.png.flat",
