@@ -1,8 +1,0 @@
-prefix=/home/csl/TempWork/catkin_ws/install
-
-Name: simple_sample
-Description: Description of simple_sample
-Version: 0.0.0
-Cflags: 
-Libs: -L${prefix}/lib 
-Requires: roscpp std_msgs message_runtime

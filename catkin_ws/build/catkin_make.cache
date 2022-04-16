@@ -1,2 +1,0 @@
-Azure_Kinect_ROS_Driver:dk_camera:server
--DCATKIN_DEVEL_PREFIX=/home/csl/TempWork/catkin_ws/devel -DCMAKE_INSTALL_PREFIX=/home/csl/TempWork/catkin_ws/install -G Unix Makefiles
