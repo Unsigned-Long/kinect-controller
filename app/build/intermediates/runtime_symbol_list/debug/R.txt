@@ -1735,7 +1735,6 @@ int drawable ic_mtrl_checked_circle 0x7f080078
 int drawable ic_mtrl_chip_checked_black 0x7f080079
 int drawable ic_mtrl_chip_checked_circle 0x7f08007a
 int drawable ic_mtrl_chip_close_circle 0x7f08007b
-int drawable init 0x7f08007c
 int drawable l 0x7f08007d
 int drawable label 0x7f08007e
 int drawable low_i 0x7f08007f
@@ -1784,6 +1783,8 @@ int drawable simple_back 0x7f0800a7
 int drawable simple_back_no_radius 0x7f0800a8
 int drawable start 0x7f0800a9
 int drawable stop 0x7f0800aa
+int drawable sv_init_depth 0x7f0800b5
+int drawable sv_init_rgb 0x7f0800b6
 int drawable test_custom_background 0x7f0800ab
 int drawable text 0x7f0800ac
 int drawable tooltip_frame_dark 0x7f0800ad

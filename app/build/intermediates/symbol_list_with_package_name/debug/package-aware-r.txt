@@ -1736,7 +1736,6 @@ drawable ic_mtrl_checked_circle
 drawable ic_mtrl_chip_checked_black
 drawable ic_mtrl_chip_checked_circle
 drawable ic_mtrl_chip_close_circle
-drawable init
 drawable l
 drawable label
 drawable low_i
@@ -1785,6 +1784,8 @@ drawable simple_back
 drawable simple_back_no_radius
 drawable start
 drawable stop
+drawable sv_init_depth
+drawable sv_init_rgb
 drawable test_custom_background
 drawable text
 drawable tooltip_frame_dark

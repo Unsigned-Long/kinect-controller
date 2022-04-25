@@ -42,7 +42,6 @@ drawable home_true
 drawable ic
 drawable ic_launcher_background
 drawable ic_launcher_foreground
-drawable init
 drawable l
 drawable label
 drawable low_i
@@ -58,6 +57,8 @@ drawable simple_back
 drawable simple_back_no_radius
 drawable start
 drawable stop
+drawable sv_init_depth
+drawable sv_init_rgb
 drawable text
 drawable w
 drawable wifi
