@@ -515,7 +515,7 @@ public class MainActivity extends AppCompatActivity {
 
                 Canvas canvas = surfaceHolder.lockCanvas();
 
-                Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.init);
+                Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.sv_init_rgb);
                 int bitWidth = bitmap.getWidth();
                 int bitHeight = bitmap.getHeight();
                 Rect srcRect = new Rect(0, 0, bitWidth, bitHeight);
@@ -549,7 +549,7 @@ public class MainActivity extends AppCompatActivity {
 
                 Canvas canvas = surfaceHolder.lockCanvas();
 
-                Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.init);
+                Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.sv_init_depth);
                 int bitWidth = bitmap.getWidth();
                 int bitHeight = bitmap.getHeight();
                 Rect srcRect = new Rect(0, 0, bitWidth, bitHeight);

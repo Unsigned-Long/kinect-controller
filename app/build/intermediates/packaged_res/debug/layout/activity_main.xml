@@ -930,7 +930,7 @@ into the internal storage of the device.\n\nOf course, you can find this project
 
                 <ImageView
                     android:layout_width="match_parent"
-                    android:layout_height="300dp"
+                    android:layout_height="350dp"
                     android:src="@drawable/ros_socket"
                     android:scaleType="fitCenter"
                     android:padding="@dimen/padding_small"

@@ -24,8 +24,12 @@
         "source": "/home/csl/AndroidProjects/Slam/app/src/main/res/drawable-v24/f.png"
     },
     {
-        "merged": "/home/csl/AndroidProjects/Slam/app/build/intermediates/merged_res/debug/drawable-v24_init.png.flat",
-        "source": "/home/csl/AndroidProjects/Slam/app/src/main/res/drawable-v24/init.png"
+        "merged": "/home/csl/AndroidProjects/Slam/app/build/intermediates/merged_res/debug/drawable-v24_sv_init_depth.png.flat",
+        "source": "/home/csl/AndroidProjects/Slam/app/src/main/res/drawable-v24/sv_init_depth.png"
+    },
+    {
+        "merged": "/home/csl/AndroidProjects/Slam/app/build/intermediates/merged_res/debug/drawable-v24_sv_init_rgb.png.flat",
+        "source": "/home/csl/AndroidProjects/Slam/app/src/main/res/drawable-v24/sv_init_rgb.png"
     },
     {
         "merged": "/home/csl/AndroidProjects/Slam/app/build/intermediates/merged_res/debug/font_ubuntu_mono.xml.flat",
