@@ -1,8 +1,0 @@
-prefix=/home/slam/catkin_ws_v2/catkin_ws/devel
-
-Name: dk_camera
-Description: Description of dk_camera
-Version: 0.0.0
-Cflags: -I/home/slam/catkin_ws_v2/catkin_ws/devel/include
-Libs: -L${prefix}/lib 
-Requires: roscpp std_msgs message_runtime
