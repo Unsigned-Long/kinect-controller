@@ -1751,6 +1751,7 @@ drawable material_ic_keyboard_arrow_previous_black_24dp
 drawable material_ic_keyboard_arrow_right_black_24dp
 drawable material_ic_menu_arrow_down_black_24dp
 drawable material_ic_menu_arrow_up_black_24dp
+drawable msg_type
 drawable mtrl_dialog_background
 drawable mtrl_dropdown_arrow
 drawable mtrl_ic_arrow_drop_down
@@ -1778,6 +1779,7 @@ drawable notification_template_icon_low_bg
 drawable notification_tile_bg
 drawable notify_panel_notification_icon_bg
 drawable p
+drawable ros_socket
 drawable s
 drawable simple_back
 drawable simple_back_no_radius
@@ -1908,6 +1910,7 @@ id clip_horizontal
 id clip_vertical
 id clockwise
 id collapseActionView
+id color_image
 id confirm_button
 id container
 id content
@@ -1926,6 +1929,7 @@ id decor_content_parent
 id default_activity_button
 id deltaRelative
 id dependency_ordering
+id depth_image
 id design_bottom_sheet
 id design_menu_item_action_area
 id design_menu_item_action_area_stub
@@ -2107,7 +2111,6 @@ id radio
 id ratio
 id rectangles
 id reverseSawtooth
-id rgb8_image
 id right
 id rightToLeft
 id right_icon

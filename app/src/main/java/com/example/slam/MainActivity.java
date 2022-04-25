@@ -49,6 +49,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.net.SocketException;
 import java.text.DecimalFormat;
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -60,12 +61,14 @@ public class MainActivity extends AppCompatActivity {
     public static final int DEVICE_CONNECTED = 2;
     public static final int SEND_MSG_SUCCESS = 3;
     public static final int SEND_MSG_ERROR = 4;
-    public static final int GET_IMG_SUCCESS = 5;
+    public static final int GET_COLOR_IMG_SUCCESS = 5;
     public static final int GET_MSG_SUCCESS = 6;
+    public static final int GET_DEPTH_IMG_SUCCESS = 7;
 
     // this is the port
     public static final int DEVICE_MSG_PORT = 3890;
-    public static final int DEVICE_IMG_PORT = 9988;
+    public static final int DEVICE_COLOR_IMG_PORT = 9988;
+    public static final int DEVICE_DEPTH_IMG_PORT = 1314;
 
     private static final String _targetWiFiSSID = "slam";
     private static final String _targetHostName = "slam-device";
@@ -120,11 +123,15 @@ public class MainActivity extends AppCompatActivity {
     private byte[] _colorImageBuffer;
     private int _curColorImageBufferIdx;
 
+    private byte[] _depthImageBuffer;
+    private int _curdepthImageBufferIdx;
+
     // image
     private ImageView _iv_letter_s, _iv_letter_l, _iv_letter_a, _iv_letter_m;
 
     // double buffer
     private SurfaceView _sv_colorImage;
+    private SurfaceView _sv_depthImage;
 
     // handler
     private Handler _timeDisplayHandler;
@@ -136,8 +143,10 @@ public class MainActivity extends AppCompatActivity {
     // tcp [msg, img]
     private ConnectThread _connectionForMsg;
     private ListenerThread _listenerMsgThread;
-    private ConnectThread _connectionForImg;
-    private ListenerThread _listenerImgThread;
+    private ConnectThread _connectionForColorImg;
+    private ListenerThread _listenerColorImgThread;
+    private ConnectThread _connectionForDepthImg;
+    private ListenerThread _listenerDepthImgThread;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -226,7 +235,8 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    public void handleReceivedImg(byte[] buffer) {
+    @SuppressLint("ResourceAsColor")
+    public void handleReceivedImg(byte[] buffer, int IMG_TYPE) {
         byte[] header = {buffer[0]};
 
         // TODO: 4/16/22 check the image left size
@@ -235,34 +245,78 @@ public class MainActivity extends AppCompatActivity {
             byte[] length = {buffer[1], buffer[2], buffer[3], buffer[4]};
             int leftSize = Integer.valueOf(new String(length));
 
-            Log.d("---", "end image, left size: [" + leftSize + "]");
+            if (IMG_TYPE == GET_COLOR_IMG_SUCCESS) {
+                Log.d("---", "end color image, left size: [" + leftSize + "]");
 
-            System.arraycopy(buffer, 5, _colorImageBuffer, _curColorImageBufferIdx, leftSize);
-            _curColorImageBufferIdx += leftSize;
+                System.arraycopy(buffer, 5, _colorImageBuffer, _curColorImageBufferIdx, leftSize);
+                _curColorImageBufferIdx += leftSize;
 
-            Bitmap bitmap = BitmapFactory.decodeByteArray(_colorImageBuffer, 0, _curColorImageBufferIdx);
-            if (bitmap == null) {
-                return;
+                Bitmap colorBitmap = BitmapFactory.decodeByteArray(_colorImageBuffer, 0, _curColorImageBufferIdx);
+                if (colorBitmap == null) {
+                    return;
+                }
+                Log.d("---", "handleReceivedImg: drawing a new image");
+                // TODO: 4/15/22 show image
+                Canvas canvas = _sv_colorImage.getHolder().lockCanvas();
+
+                // range [source image]
+                Rect srcRect = new Rect(0, 0, colorBitmap.getWidth(), colorBitmap.getHeight());
+                // range [surface image]
+                Rect dstRect = new Rect(0, 0, _sv_colorImage.getWidth(), _sv_colorImage.getHeight());
+                canvas.drawBitmap(colorBitmap, srcRect, dstRect, null);
+
+                _sv_colorImage.getHolder().unlockCanvasAndPost(canvas);
+
+                _curColorImageBufferIdx = 0;
+            } else if (IMG_TYPE == GET_DEPTH_IMG_SUCCESS) {
+                Log.d("---", "end depth image, left size: [" + leftSize + "]");
+
+                System.arraycopy(buffer, 5, _depthImageBuffer, _curdepthImageBufferIdx, leftSize);
+                _curdepthImageBufferIdx += leftSize;
+
+                Bitmap depthBitmap = BitmapFactory.decodeByteArray(_depthImageBuffer, 0, _curdepthImageBufferIdx);
+                if (depthBitmap == null) {
+                    return;
+                }
+                Log.d("---", "handleReceivedImg: drawing a new image");
+                // TODO: 4/15/22 show image
+                Canvas canvas = _sv_depthImage.getHolder().lockCanvas();
+                canvas.drawColor(R.color.white);
+
+                // range [source image]
+                Rect srcRect = new Rect(0, 0, depthBitmap.getWidth(), depthBitmap.getHeight());
+                // range [surface image]
+                Rect dstRect = new Rect(0, 0, _sv_depthImage.getWidth(), _sv_depthImage.getHeight());
+                canvas.drawBitmap(depthBitmap, srcRect, dstRect, null);
+
+                _sv_depthImage.getHolder().unlockCanvasAndPost(canvas);
+
+                _curdepthImageBufferIdx = 0;
             }
-            // TODO: 4/15/22 show image
-            Canvas canvas = _sv_colorImage.getHolder().lockCanvas();
 
-            // range [source image]
-            Rect srcRect = new Rect(0, 0, bitmap.getWidth(), bitmap.getHeight());
-            // range [surface image]
-            Rect dstRect = new Rect(0, 0, _sv_colorImage.getWidth(), _sv_colorImage.getHeight());
-            canvas.drawBitmap(bitmap, srcRect, dstRect, null);
-
-            _sv_colorImage.getHolder().unlockCanvasAndPost(canvas);
-
-            _curColorImageBufferIdx = 0;
-
-        } else if (new String(header).equals("S")) {
+        } else if (new String(header).equals("M")) {
             // new image
-            Log.d("---", "receiving an image... size [2043]");
-
-            System.arraycopy(buffer, 5, _colorImageBuffer, _curColorImageBufferIdx, 2043);
-            _curColorImageBufferIdx += 2043;
+            if (IMG_TYPE == GET_COLOR_IMG_SUCCESS) {
+                System.arraycopy(buffer, 5, _colorImageBuffer, _curColorImageBufferIdx, 2043);
+                _curColorImageBufferIdx += 2043;
+                Log.d("---", "receiving an middle piece color image... size [2043]");
+            } else {
+                System.arraycopy(buffer, 5, _depthImageBuffer, _curdepthImageBufferIdx, 2043);
+                _curdepthImageBufferIdx += 2043;
+                Log.d("---", "receiving an middle piece depth image... size [2043]");
+            }
+        } else if (new String(header).equals("S")) {
+            if (IMG_TYPE == GET_COLOR_IMG_SUCCESS) {
+                _curColorImageBufferIdx = 0;
+                System.arraycopy(buffer, 5, _colorImageBuffer, _curColorImageBufferIdx, 2043);
+                _curColorImageBufferIdx += 2043;
+                Log.d("---", "receiving an new color image... size [2043]");
+            } else if (IMG_TYPE == GET_DEPTH_IMG_SUCCESS) {
+                _curdepthImageBufferIdx = 0;
+                System.arraycopy(buffer, 5, _depthImageBuffer, _curdepthImageBufferIdx, 2043);
+                _curdepthImageBufferIdx += 2043;
+                Log.d("---", "receiving an new depth image... size [2043]");
+            }
         }
     }
 
@@ -359,6 +413,9 @@ public class MainActivity extends AppCompatActivity {
         _colorImageBuffer = new byte[50000];
         _curColorImageBufferIdx = 0;
 
+        _depthImageBuffer = new byte[50000];
+        _curdepthImageBufferIdx = 0;
+
         // acce, gyro
         this._tv_ax = findViewById(R.id.acce_x);
         this._tv_ay = findViewById(R.id.acce_y);
@@ -441,8 +498,43 @@ public class MainActivity extends AppCompatActivity {
         _iv_letter_l = findViewById(R.id.img_l);
         _iv_letter_a = findViewById(R.id.img_a);
         _iv_letter_m = findViewById(R.id.img_m);
-        _sv_colorImage = findViewById(R.id.rgb8_image);
+
+        _sv_colorImage = findViewById(R.id.color_image);
         _sv_colorImage.getHolder().addCallback(new SurfaceHolder.Callback() {
+
+            @Override
+            public void surfaceCreated(SurfaceHolder surfaceHolder) {
+            }
+
+            @Override
+            public void surfaceChanged(@NonNull SurfaceHolder surfaceHolder, int format, int width, int height) {
+                Log.d("---", "surfaceChanged");
+                Paint paint = new Paint();
+                paint.setAntiAlias(true);
+                paint.setStyle(Paint.Style.STROKE);
+
+                Canvas canvas = surfaceHolder.lockCanvas();
+
+                Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.init);
+                int bitWidth = bitmap.getWidth();
+                int bitHeight = bitmap.getHeight();
+                Rect srcRect = new Rect(0, 0, bitWidth, bitHeight);
+                Rect dstRect = new Rect(0, 0, width, height);
+
+                canvas.drawBitmap(bitmap, srcRect, dstRect, paint);
+
+                surfaceHolder.unlockCanvasAndPost(canvas);
+            }
+
+            @Override
+            public void surfaceDestroyed(SurfaceHolder surfaceHolder) {
+
+            }
+
+        });
+
+        _sv_depthImage = findViewById(R.id.depth_image);
+        _sv_depthImage.getHolder().addCallback(new SurfaceHolder.Callback() {
 
             @Override
             public void surfaceCreated(SurfaceHolder surfaceHolder) {
@@ -491,8 +583,12 @@ public class MainActivity extends AppCompatActivity {
                         _connectionForMsg.start();
 
                         // create a new image connection
-                        _connectionForImg = new ConnectThread(_listenerImgThread.getSocket(), _msgHandler, MainActivity.GET_IMG_SUCCESS);
-                        _connectionForImg.start();
+                        _connectionForColorImg = new ConnectThread(_listenerColorImgThread.getSocket(), _msgHandler, MainActivity.GET_COLOR_IMG_SUCCESS);
+                        _connectionForColorImg.start();
+
+                        // create a new image connection
+                        _connectionForDepthImg = new ConnectThread(_listenerDepthImgThread.getSocket(), _msgHandler, MainActivity.GET_DEPTH_IMG_SUCCESS);
+                        _connectionForDepthImg.start();
                         break;
 
                     case DEVICE_CONNECTED:
@@ -517,9 +613,14 @@ public class MainActivity extends AppCompatActivity {
                         handleReceivedMsg(message);
                         break;
 
-                    case GET_IMG_SUCCESS:
-                        byte[] bys = msg.getData().getByteArray("MSG");
-                        handleReceivedImg(bys);
+                    case GET_COLOR_IMG_SUCCESS:
+                        byte[] bys_color = msg.getData().getByteArray("MSG");
+                        handleReceivedImg(bys_color, GET_COLOR_IMG_SUCCESS);
+                        break;
+                    case GET_DEPTH_IMG_SUCCESS:
+                        byte[] bys_depth = msg.getData().getByteArray("MSG");
+                        handleReceivedImg(bys_depth, GET_DEPTH_IMG_SUCCESS);
+                        break;
 
                     default:
                 }
@@ -540,16 +641,23 @@ public class MainActivity extends AppCompatActivity {
                     try {
                         // construct a new socket
                         Socket msg_socket = new Socket(_targetHostName, DEVICE_MSG_PORT);
-                        Socket img_socket = new Socket(_targetHostName, DEVICE_IMG_PORT);
+                        Socket color_img_socket = new Socket(_targetHostName, DEVICE_COLOR_IMG_PORT);
+                        Socket depth_img_socket = new Socket(_targetHostName, DEVICE_DEPTH_IMG_PORT);
+
                         // construct a new connect thread
                         _connectionForMsg = new ConnectThread(msg_socket, _msgHandler, MainActivity.GET_MSG_SUCCESS);
                         // start connect
                         _connectionForMsg.start();
 
                         // construct a new connect thread
-                        _connectionForImg = new ConnectThread(img_socket, _msgHandler, MainActivity.GET_IMG_SUCCESS);
+                        _connectionForColorImg = new ConnectThread(color_img_socket, _msgHandler, MainActivity.GET_COLOR_IMG_SUCCESS);
                         // start connect
-                        _connectionForImg.start();
+                        _connectionForColorImg.start();
+
+                        // construct a new connect thread
+                        _connectionForDepthImg = new ConnectThread(depth_img_socket, _msgHandler, MainActivity.GET_DEPTH_IMG_SUCCESS);
+                        // start connect
+                        _connectionForDepthImg.start();
 
                     } catch (IOException e) {
                         e.printStackTrace();
@@ -603,13 +711,16 @@ public class MainActivity extends AppCompatActivity {
         // listener [msg, img]
         _listenerMsgThread = new ListenerThread(DEVICE_MSG_PORT, _msgHandler);
         _listenerMsgThread.start();
-        _listenerImgThread = new ListenerThread(DEVICE_IMG_PORT, _msgHandler);
-        _listenerImgThread.start();
+        _listenerColorImgThread = new ListenerThread(DEVICE_COLOR_IMG_PORT, _msgHandler);
+        _listenerColorImgThread.start();
+        _listenerDepthImgThread = new ListenerThread(DEVICE_DEPTH_IMG_PORT, _msgHandler);
+        _listenerDepthImgThread.start();
 
         // for time display
         _tv_timeDisplay_home = findViewById(R.id.textview_time_home);
         _tv_timeDisplay_wifi = findViewById(R.id.textview_time_wifi);
         _tv_timeDisplay_help = findViewById(R.id.textview_time_help);
+
         // double click event
         this._tv_timeDisplay_home.setOnClickListener(new DoubleClickListener() {
             @Override
@@ -681,7 +792,7 @@ public class MainActivity extends AppCompatActivity {
         hostIp.setText(intIP2StringIP(this._wifiInfo.getIpAddress()));
 
         TextView port = findViewById(R.id.textview_port);
-        port.setText("msg(" + DEVICE_MSG_PORT + ") img(" + DEVICE_IMG_PORT + ")");
+        port.setText("msg(" + DEVICE_MSG_PORT + ") img(" + DEVICE_COLOR_IMG_PORT + ")");
 
         this.checkTargetWiFi();
     }
@@ -752,6 +863,11 @@ public class MainActivity extends AppCompatActivity {
             if (socket == null) {
                 return;
             }
+            try {
+                socket.setTcpNoDelay(true);
+            } catch (SocketException e) {
+                e.printStackTrace();
+            }
             // send message for "connected"
             handler.sendEmptyMessage(MainActivity.DEVICE_CONNECTED);
             try {
@@ -762,7 +878,7 @@ public class MainActivity extends AppCompatActivity {
                 int bytes;
                 // read stream data [get message]
                 while (true) {
-                    Thread.sleep(10);
+//                    Thread.sleep(10);
                     if (_successfulMsgType == MainActivity.GET_MSG_SUCCESS) {
                         bytes = inputStream.read(buffer);
                         if (bytes > 0) {
@@ -776,7 +892,9 @@ public class MainActivity extends AppCompatActivity {
                             message.setData(bundle);
                             handler.sendMessage(message);
                         }
-                    } else if (_successfulMsgType == MainActivity.GET_IMG_SUCCESS) {
+                    } else {
+                        // for 'GET_COLOR_IMG_SUCCESS' and 'GET_DEPTH_IMG_SUCCESS'
+
                         // if size is not enough
                         int curSize = 0;
                         byte[] data = new byte[2048];
@@ -815,7 +933,7 @@ public class MainActivity extends AppCompatActivity {
 //                        handler.sendMessage(message);
 //                    }
                 }
-            } catch (IOException | InterruptedException e) {
+            } catch (IOException e) {
                 e.printStackTrace();
             }
         }
@@ -824,28 +942,34 @@ public class MainActivity extends AppCompatActivity {
          * send data
          */
         public void sendData(String msg) {
-            if (outputStream != null) {
-                try {
-                    outputStream = socket.getOutputStream();
-                    // write data [send message]
-                    outputStream.write(msg.getBytes());
-                    // send message for "send message success"
-                    Message message = Message.obtain();
-                    message.what = MainActivity.SEND_MSG_SUCCESS;
-                    Bundle bundle = new Bundle();
-                    bundle.putString("MSG", msg);
-                    message.setData(bundle);
-                    handler.sendMessage(message);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                    // send message for "send message error"
-                    Message message = Message.obtain();
-                    message.what = MainActivity.SEND_MSG_ERROR;
-                    Bundle bundle = new Bundle();
-                    bundle.putString("MSG", msg);
-                    message.setData(bundle);
-                    handler.sendMessage(message);
-                }
+            if (socket == null) {
+                return;
+            }
+            try {
+                socket.setTcpNoDelay(true);
+            } catch (SocketException e) {
+                e.printStackTrace();
+            }
+            try {
+                outputStream = socket.getOutputStream();
+                // write data [send message]
+                outputStream.write(msg.getBytes());
+                // send message for "send message success"
+                Message message = Message.obtain();
+                message.what = MainActivity.SEND_MSG_SUCCESS;
+                Bundle bundle = new Bundle();
+                bundle.putString("MSG", msg);
+                message.setData(bundle);
+                handler.sendMessage(message);
+            } catch (IOException e) {
+                e.printStackTrace();
+                // send message for "send message error"
+                Message message = Message.obtain();
+                message.what = MainActivity.SEND_MSG_ERROR;
+                Bundle bundle = new Bundle();
+                bundle.putString("MSG", msg);
+                message.setData(bundle);
+                handler.sendMessage(message);
             }
         }
     }

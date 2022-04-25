@@ -284,7 +284,29 @@
                 </TextView>
 
                 <SurfaceView
-                    android:id="@+id/rgb8_image"
+                    android:id="@+id/color_image"
+                    android:layout_width="match_parent"
+                    android:layout_height="185dp"
+                    android:background="@drawable/simple_back_no_radius"
+                    android:layout_marginTop="@dimen/small_margin_between_views">
+
+                </SurfaceView>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/label_height"
+                    android:background="@drawable/header"
+                    android:layout_marginTop="@dimen/margin"
+                    android:textStyle="bold"
+                    android:textColor="@color/white"
+                    android:gravity="center"
+                    android:fontFamily="@font/ubuntu_mono"
+                    android:textSize="@dimen/text_size"
+                    android:text="Real Time Depth Image">
+                </TextView>
+
+                <SurfaceView
+                    android:id="@+id/depth_image"
                     android:layout_width="match_parent"
                     android:layout_height="185dp"
                     android:background="@drawable/simple_back_no_radius"
@@ -902,9 +924,60 @@ into the internal storage of the device.\n\nOf course, you can find this project
                     android:gravity="center"
                     android:fontFamily="@font/ubuntu_mono"
                     android:textSize="@dimen/text_size"
+                    android:text="Communication Logic">
+
+                </TextView>
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="300dp"
+                    android:src="@drawable/ros_socket"
+                    android:scaleType="fitCenter"
+                    android:padding="@dimen/padding_small"
+                    android:layout_marginTop="@dimen/small_margin_between_views"
+                    android:background="@drawable/simple_back">
+
+                </ImageView>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/label_height"
+                    android:background="@drawable/header"
+                    android:layout_marginTop="@dimen/margin"
+                    android:textStyle="bold"
+                    android:textColor="@color/white"
+                    android:gravity="center"
+                    android:fontFamily="@font/ubuntu_mono"
+                    android:textSize="@dimen/text_size"
+                    android:text="Message Type">
+
+                </TextView>
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="220dp"
+                    android:layout_marginTop="@dimen/small_margin_between_views"
+                    android:src="@drawable/msg_type"
+                    android:scaleType="fitCenter"
+                    android:padding="@dimen/padding_small"
+                    android:background="@drawable/simple_back">
+
+                </ImageView>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/label_height"
+                    android:background="@drawable/header"
+                    android:layout_marginTop="@dimen/margin"
+                    android:textStyle="bold"
+                    android:textColor="@color/white"
+                    android:gravity="center"
+                    android:fontFamily="@font/ubuntu_mono"
+                    android:textSize="@dimen/text_size"
                     android:text="Tips">
 
                 </TextView>
+
 
                 <TextView
                     android:layout_width="match_parent"

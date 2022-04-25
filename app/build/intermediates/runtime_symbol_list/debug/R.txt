@@ -1750,6 +1750,7 @@ int drawable material_ic_keyboard_arrow_previous_black_24dp 0x7f080087
 int drawable material_ic_keyboard_arrow_right_black_24dp 0x7f080088
 int drawable material_ic_menu_arrow_down_black_24dp 0x7f080089
 int drawable material_ic_menu_arrow_up_black_24dp 0x7f08008a
+int drawable msg_type 0x7f0800b3
 int drawable mtrl_dialog_background 0x7f08008b
 int drawable mtrl_dropdown_arrow 0x7f08008c
 int drawable mtrl_ic_arrow_drop_down 0x7f08008d
@@ -1777,6 +1778,7 @@ int drawable notification_template_icon_low_bg 0x7f0800a2
 int drawable notification_tile_bg 0x7f0800a3
 int drawable notify_panel_notification_icon_bg 0x7f0800a4
 int drawable p 0x7f0800a5
+int drawable ros_socket 0x7f0800b4
 int drawable s 0x7f0800a6
 int drawable simple_back 0x7f0800a7
 int drawable simple_back_no_radius 0x7f0800a8
@@ -1907,6 +1909,7 @@ int id clip_horizontal 0x7f0a0070
 int id clip_vertical 0x7f0a0071
 int id clockwise 0x7f0a0072
 int id collapseActionView 0x7f0a0073
+int id color_image 0x7f0a01cb
 int id confirm_button 0x7f0a0074
 int id container 0x7f0a0075
 int id content 0x7f0a0076
@@ -1925,6 +1928,7 @@ int id decor_content_parent 0x7f0a0082
 int id default_activity_button 0x7f0a0083
 int id deltaRelative 0x7f0a0084
 int id dependency_ordering 0x7f0a0085
+int id depth_image 0x7f0a01cc
 int id design_bottom_sheet 0x7f0a0086
 int id design_menu_item_action_area 0x7f0a0087
 int id design_menu_item_action_area_stub 0x7f0a0088
@@ -2106,7 +2110,6 @@ int id radio 0x7f0a0137
 int id ratio 0x7f0a0138
 int id rectangles 0x7f0a0139
 int id reverseSawtooth 0x7f0a013a
-int id rgb8_image 0x7f0a013b
 int id right 0x7f0a013c
 int id rightToLeft 0x7f0a013d
 int id right_icon 0x7f0a013e

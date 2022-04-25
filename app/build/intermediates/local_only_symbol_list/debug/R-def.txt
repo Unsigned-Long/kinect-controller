@@ -47,10 +47,12 @@ drawable l
 drawable label
 drawable low_i
 drawable m
+drawable msg_type
 drawable my_sensor_right
 drawable my_sensor_val_left
 drawable my_sensor_val_middle
 drawable p
+drawable ros_socket
 drawable s
 drawable simple_back
 drawable simple_back_no_radius
@@ -68,6 +70,8 @@ id acce_z
 id button_connect
 id button_start
 id button_stop
+id color_image
+id depth_image
 id frame_help
 id frame_slam
 id frame_wifi
@@ -81,7 +85,6 @@ id img_s
 id linechart_acce
 id linechart_gyro
 id nav_view
-id rgb8_image
 id text_state
 id textview_depth
 id textview_deviceMsg
