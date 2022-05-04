@@ -34,9 +34,15 @@ It communicates with the device via WiFi. The following is how to use the softwa
 
 # 4. Demo
 
+### 1. images
+
 <img src="./img/home.jpg" width=33.3%><img src="./img/wifi.jpg" width=33.3%><img src="./img/help.jpg" width=33.3%>
 
 <img src="./img/img.png">
+
+### 2. video
+
+Here is the link: [https://www.bilibili.com/video/BV1qr4y187ww/](https://www.bilibili.com/video/BV1qr4y187ww/)
 
 # 5. Project Structure
 
