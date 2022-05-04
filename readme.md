@@ -12,10 +12,10 @@ It communicates with the device via WiFi. The following is how to use the softwa
 
 1) First, open WiFi and connect to the hotspot of the specified device;
 2) Click the 'CONNECT' button to connect to the server running on the device.
-  After the connection is successful, you can see the prompt of successful connection in the 'Connection State' TextView;
+    After the connection is successful, you can see the prompt of successful connection in the 'Connection State' TextView;
 3) Click the 'START' button to start data collection;
 4) To end the acquisition, click the 'STOP' button, and the device will stop the acquisition and record the data
-  into the internal storage of the device.
+    into the internal storage of the device.
 
 # 2. Tips
 
@@ -35,6 +35,8 @@ It communicates with the device via WiFi. The following is how to use the softwa
 # 4. Demo
 
 <img src="./img/home.jpg" width=33.3%><img src="./img/wifi.jpg" width=33.3%><img src="./img/help.jpg" width=33.3%>
+
+<img src="./img/img.png">
 
 # 5. Project Structure
 
