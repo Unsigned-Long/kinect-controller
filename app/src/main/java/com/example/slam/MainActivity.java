@@ -70,7 +70,7 @@ public class MainActivity extends AppCompatActivity {
     public static final int DEVICE_COLOR_IMG_PORT = 9988;
     public static final int DEVICE_DEPTH_IMG_PORT = 1314;
 
-    private static final String _targetWiFiSSID = "slam";
+    private static final String _targetWiFiSSID = "slam-device";
     private static final String _targetHostName = "slam-device";
 
     //    private static final String _targetWiFiSSID = "Juster";
@@ -771,6 +771,10 @@ public class MainActivity extends AppCompatActivity {
         this._wifiInfo = this._wifiManager.getConnectionInfo();
 
         // display
+        // --
+
+
+        // --
 
         _tv_ssid.setText(this._wifiInfo.getSSID());
         Log.d("-----------", this._wifiInfo.toString());
@@ -792,13 +796,14 @@ public class MainActivity extends AppCompatActivity {
         hostIp.setText(intIP2StringIP(this._wifiInfo.getIpAddress()));
 
         TextView port = findViewById(R.id.textview_port);
-        port.setText("msg(" + DEVICE_MSG_PORT + ") img(" + DEVICE_COLOR_IMG_PORT + ")");
+        port.setText("msg(" + DEVICE_MSG_PORT + ") img(" + DEVICE_COLOR_IMG_PORT + ';' + DEVICE_DEPTH_IMG_PORT + ")");
 
         this.checkTargetWiFi();
     }
 
     public void checkTargetWiFi() {
         // if wifi is not turned on, check the up address
+        Log.d("---checkTargetWiFi---", this._wifiInfo.getSSID());
         if (('\"' + _targetWiFiSSID + '\"').equals(this._wifiInfo.getSSID())) {
             // is the target wifi
             if (this._targetWiFiConnected != 1) {

@@ -1,10 +1,10 @@
 {
     "logs": [
         {
-            "outputFile": "/home/csl/AndroidProjects/Slam/app/build/intermediates/incremental/mergeDebugResources/merged.dir/values-h320dp-port-v13/values-h320dp-port-v13.xml",
+            "outputFile": "com.example.slam.app-mergeDebugResources-17:/values-h320dp-port-v13/values-h320dp-port-v13.xml",
             "map": [
                 {
-                    "source": "/home/csl/.gradle/caches/transforms-3/df6ea8679774a514a8fa7722b490163e/transformed/material-1.4.0/res/values-h320dp-port-v13/values-h320dp-port-v13.xml",
+                    "source": "/home/csl/.gradle/caches/transforms-3/35c69b59585be5ab8e4b75884f21579b/transformed/material-1.4.0/res/values-h320dp-port-v13/values-h320dp-port-v13.xml",
                     "from": {
                         "startLines": "2",
                         "startColumns": "4",
